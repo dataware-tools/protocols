@@ -23,21 +23,18 @@ paths:
           description: ''
           schema:
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Database'
-            examples:
-              /databases/small_driving_behavior_database/:
-                value: {}
-              /databases/default/:
-                value: {}
-        description: Request to /databases/default
       summary: Get detail information of the database
       tags:
         - database
         - get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+              examples: {}
   /databases:
     get:
       operationId: listDatabases
@@ -63,25 +60,17 @@ paths:
           in: query
           schema:
             type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DatabaseList'
-            examples:
-              example-1:
-                value:
-                  count: 0
-                  number_of_pages: 0
-                  databases:
-                    - database_id: string
-                      name: string
-                      description: string
-        description: ''
       summary: Get list of database
       tags:
         - database
         - list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseList'
     parameters: []
 components:
   schemas:
