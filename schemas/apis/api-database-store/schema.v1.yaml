@@ -23,39 +23,11 @@ paths:
           description: ''
           schema:
             type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  database_id:
-                    type: string
-                  name:
-                    type: string
-                  description:
-                    type: string
-                required:
-                  - database_id
-              examples:
-                /databases/small_driving_behavior_database/:
-                  value:
-                    database_id: small_driving_behavior_database
-                    name: Small Driving Behavior Database
-                    description: ''
-                /databases/default/:
-                  value:
-                    database_id: default
-                    name: default database
-                    description: default database located in "/share/small_DrivingBehaviorDatabase"
-          description: OK
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties: {}
+              $ref: '#/components/schemas/Database'
             examples:
               /databases/small_driving_behavior_database/:
                 value: {}
@@ -91,53 +63,66 @@ paths:
           in: query
           schema:
             type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                  number_of_pages:
-                    type: integer
-                  databases:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        database_id:
-                          type: string
-                        name:
-                          type: string
-                        description:
-                          type: string
-                      required:
-                        - database_id
-              examples:
-                /databases:
-                  value:
-                    count: 1
-                    databases:
-                      - database_id: small_driving_behavior_database
-                        name: Small Driving Behavior Database
-                        description: ''
-                    number_of_pages: 1
-          description: OK
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties: {}
+              $ref: '#/components/schemas/DatabaseList'
             examples:
-              /databases/:
-                value: {}
+              example-1:
+                value:
+                  count: 0
+                  number_of_pages: 0
+                  databases:
+                    - database_id: string
+                      name: string
+                      description: string
+        description: ''
       summary: Get list of database
       tags:
         - database
         - list
     parameters: []
 components:
-  schemas: {}
+  schemas:
+    DatabaseList:
+      type: object
+      title: DatabaseList
+      properties:
+        count:
+          type: integer
+        number_of_pages:
+          type: integer
+        databases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Database'
+      x-examples:
+        example-1:
+          count: 1
+          databases:
+            - database_id: small_driving_behavior_database
+              name: Small Driving Behavior Database
+              description: ''
+          number_of_pages: 1
+    Database:
+      title: Database
+      type: object
+      properties:
+        database_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - database_id
+      x-examples:
+        example-1:
+          database_id: small_driving_behavior_database
+          name: Small Driving Behavior Database
+          description: ''
+        example-2:
+          database_id: default
+          name: default database
+          description: default database located in "/share/small_DrivingBehaviorDatabase"
