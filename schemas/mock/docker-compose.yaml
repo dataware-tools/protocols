@@ -1,0 +1,23 @@
+version: '3'
+services:
+  proxy:
+    image: caddy
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - '8080:80'
+    depends_on:
+      - api-database-store
+      - api-record-store
+  api-database-store:
+    image: stoplight/prism:4
+    volumes:
+      - ../apis:/apis:ro
+    command: >
+      mock -p 4010 --host 0.0.0.0 /apis/api-database-store/schema.v1.yaml
+  api-record-store:
+    image: stoplight/prism:4
+    volumes:
+      - ../apis:/apis:ro
+    command: >
+      mock -p 4010 --host 0.0.0.0 /apis/api-record-store/schema.v1.yaml

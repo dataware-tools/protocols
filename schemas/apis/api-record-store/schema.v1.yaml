@@ -1,0 +1,562 @@
+openapi: 3.0.2
+info:
+  title: schema
+  version: '1.0'
+  description: 'Database related APIs'
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  '/api/v1/databases/{database_id}/records/{record_id}':
+    get:
+      operationId: retrieveRecordViewSet
+      description: Return the detail of the record.
+      parameters:
+        - name: database_id
+          in: path
+          required: true
+          description: ID of the target database
+          schema:
+            type: string
+        - name: record_id
+          in: path
+          required: true
+          description: record_id
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              /api/v1/databases/default/records/016_00000000030000000215/:
+                value: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                /api/v1/databases/default/records/016_00000000030000000215:
+                  value:
+                    database_id: default
+                    record_id: '016_00000000030000000215'
+                    files:
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_01.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_01_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_02.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_02_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_03.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_03_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_04.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_04_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_05.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_05_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_06.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_06_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_07.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.952
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_07_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.952
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_08.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_08_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.957
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_09.mp4
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: video/mp4
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.952
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/camera_09_timestamps.csv
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: text/csv
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.952
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/microphone_01.aac
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: audio/aac
+                        start_timestamp: no info
+                        end_timestamp: no info
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/records.bag
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: application/rosbag
+                        start_timestamp: 1489454685
+                        end_timestamp: 1489456440.858587
+                      - path: /data_pool_1/small_DrivingBehaviorDatabase/records/016_00000000030000000215/data/records.without_lidar.bag
+                        record_id: '016_00000000030000000215'
+                        type: raw_data
+                        content-type: application/rosbag
+                        start_timestamp: 1489454685
+                        end_timestamp: 1489456440.95
+      summary: Get detail information of the record
+      tags:
+        - records
+        - get
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: record_id
+        in: path
+        required: true
+  '/api/v1/databases/{database_id}/records/':
+    get:
+      operationId: listRecordViewSets
+      description: Return the list of records.
+      parameters:
+        - name: database_id
+          in: path
+          required: true
+          description: ID of the target database
+          schema:
+            type: string
+        - name: per_page
+          description: Number of items to return per page
+          in: query
+          schema:
+            type: integer
+        - name: page
+          description: Page number
+          in: query
+          schema:
+            type: integer
+        - name: sort_key
+          description: Key to sort
+          in: query
+          schema:
+            type: string
+        - name: search
+          description: Search keyword for name of records
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                /api/v1/databases/default/records/:
+                  value:
+                    database_id: default
+                    records:
+                      - record_id: '016_00000000030000000215'
+                        duration: 1724.858587026596
+                        start_timestamp: 1489454716
+                        end_timestamp: 1489456440.858587
+                        tags:
+                          - camera
+                          - front
+                          - center
+                          - image
+                          - timestamps
+                          - left
+                          - right
+                          - rear
+                          - driver
+                          - face
+                          - foot
+                          - black_and_white
+                          - microphone
+                          - sound
+                          - blink
+                          - eye
+                          - open
+                          - opening
+                          - rate
+                          - pitch
+                          - roll
+                          - yaw
+                          - gaze
+                          - horizontal
+                          - vertical
+                          - heart
+                          - vehicle
+                          - acceleration
+                          - analog
+                          - back
+                          - signal
+                          - brake
+                          - speed
+                          - pulse
+                          - turn
+                          - extracted
+                          - can
+                          - pedal
+                          - hydraulic
+                          - gas
+                          - position
+                          - headlight
+                          - state
+                          - seat
+                          - belt
+                          - steering
+                          - angle
+                          - gnss
+                          - velodyne
+                          - packets
+                          - gps
+                          - m2
+                          - distance
+                          - from
+                          - last
+                          - intersection
+                          - to
+                          - next
+                          - link
+                          - id
+                          - road
+                          - curvature
+                          - lanes
+                          - traffic
+                          - light
+                          - type
+                          - width
+                          - direction
+                          - reliability
+                          - movement
+                      - record_id: '016_00000000030000000240'
+                        duration: 79.95700001716614
+                        start_timestamp: 1489728491
+                        end_timestamp: 1489728570.957
+                        tags:
+                          - camera
+                          - front
+                          - center
+                          - image
+                          - timestamps
+                          - left
+                          - right
+                          - rear
+                          - driver
+                          - face
+                          - foot
+                          - black_and_white
+                          - microphone
+                          - sound
+                          - blink
+                          - eye
+                          - open
+                          - opening
+                          - rate
+                          - pitch
+                          - roll
+                          - yaw
+                          - gaze
+                          - horizontal
+                          - vertical
+                          - heart
+                          - vehicle
+                          - acceleration
+                          - analog
+                          - back
+                          - signal
+                          - brake
+                          - speed
+                          - pulse
+                          - turn
+                          - extracted
+                          - can
+                          - pedal
+                          - hydraulic
+                          - gas
+                          - position
+                          - headlight
+                          - state
+                          - seat
+                          - belt
+                          - steering
+                          - angle
+                          - gnss
+                          - velodyne
+                          - packets
+                          - gps
+                          - m2
+                          - distance
+                          - from
+                          - last
+                          - intersection
+                          - to
+                          - next
+                          - link
+                          - id
+                          - road
+                          - curvature
+                          - lanes
+                          - traffic
+                          - light
+                          - type
+                          - width
+                          - direction
+                          - reliability
+                          - movement
+                      - record_id: '253_16000000080000000747'
+                        duration: 4484.950000047684
+                        start_timestamp: 1506059629
+                        end_timestamp: 1506064113.95
+                        tags:
+                          - camera
+                          - front
+                          - center
+                          - image
+                          - timestamps
+                          - left
+                          - right
+                          - rear
+                          - driver
+                          - face
+                          - foot
+                          - black_and_white
+                          - microphone
+                          - sound
+                          - blink
+                          - eye
+                          - open
+                          - opening
+                          - rate
+                          - pitch
+                          - roll
+                          - yaw
+                          - gaze
+                          - horizontal
+                          - vertical
+                          - heart
+                          - vehicle
+                          - acceleration
+                          - analog
+                          - back
+                          - signal
+                          - brake
+                          - speed
+                          - pulse
+                          - turn
+                          - extracted
+                          - can
+                          - pedal
+                          - hydraulic
+                          - gas
+                          - position
+                          - headlight
+                          - state
+                          - seat
+                          - belt
+                          - steering
+                          - angle
+                          - gnss
+                          - velodyne
+                          - packets
+                          - gps
+                          - m2
+                          - distance
+                          - from
+                          - last
+                          - intersection
+                          - to
+                          - next
+                          - link
+                          - id
+                          - road
+                          - curvature
+                          - lanes
+                          - traffic
+                          - light
+                          - type
+                          - width
+                          - direction
+                          - reliability
+                          - movement
+                      - record_id: W07_17000000020000001255
+                        duration: 3474.9240000247955
+                        start_timestamp: 1519881309
+                        end_timestamp: 1519884783.924
+                        tags:
+                          - camera
+                          - front
+                          - center
+                          - image
+                          - timestamps
+                          - left
+                          - right
+                          - rear
+                          - driver
+                          - face
+                          - foot
+                          - black_and_white
+                          - microphone
+                          - sound
+                          - blink
+                          - eye
+                          - open
+                          - opening
+                          - rate
+                          - pitch
+                          - roll
+                          - yaw
+                          - gaze
+                          - horizontal
+                          - vertical
+                          - heart
+                          - vehicle
+                          - acceleration
+                          - analog
+                          - back
+                          - signal
+                          - brake
+                          - speed
+                          - pulse
+                          - turn
+                          - extracted
+                          - can
+                          - pedal
+                          - hydraulic
+                          - gas
+                          - position
+                          - headlight
+                          - state
+                          - seat
+                          - belt
+                          - steering
+                          - angle
+                          - gnss
+                          - velodyne
+                          - packets
+                          - gps
+                          - m2
+                          - distance
+                          - from
+                          - last
+                          - intersection
+                          - to
+                          - next
+                          - link
+                          - id
+                          - road
+                          - curvature
+                          - lanes
+                          - traffic
+                          - light
+                          - type
+                          - width
+                          - direction
+                          - reliability
+                          - movement
+                    number_of_pages: 4
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              /api/v1/databases/default/records/:
+                value: {}
+      summary: Get list of records
+      tags:
+        - records
+        - list
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+
+components:
+  schemas: {}

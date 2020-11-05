@@ -1,0 +1,143 @@
+openapi: 3.0.2
+info:
+  title: schema
+  version: '1.0'
+  description: 'Database related APIs'
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  '/databases/{database_id}':
+    get:
+      operationId: retrieveDatabase
+      description: Return information of the database.
+      parameters:
+        - name: database_id
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  database_id:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                required:
+                  - database_id
+              examples:
+                /databases/small_driving_behavior_database/:
+                  value:
+                    database_id: small_driving_behavior_database
+                    name: Small Driving Behavior Database
+                    description: ''
+                /databases/default/:
+                  value:
+                    database_id: default
+                    name: default database
+                    description: default database located in "/share/small_DrivingBehaviorDatabase"
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              /databases/small_driving_behavior_database/:
+                value: {}
+              /databases/default/:
+                value: {}
+        description: Request to /databases/default
+      summary: Get detail information of the database
+      tags:
+        - database
+        - get
+  /databases/:
+    get:
+      operationId: listDatabases
+      description: Return the list of databases.
+      parameters:
+        - name: per_page
+          description: Number of items to return per page
+          in: query
+          schema:
+            type: integer
+        - name: page
+          description: Page number
+          in: query
+          schema:
+            type: integer
+        - name: sort_key
+          description: Key to sort
+          in: query
+          schema:
+            type: string
+        - name: search
+          description: Search keyword for name of databases
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                  number_of_pages:
+                    type: integer
+                  databases:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        database_id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                      required:
+                        - database_id
+              examples:
+                /databases/:
+                  value:
+                    count: 1
+                    databases:
+                      - database_id: small_driving_behavior_database
+                        name: Small Driving Behavior Database
+                        description: ''
+                    number_of_pages: 1
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              /databases/:
+                value: {}
+      summary: Get list of database
+      tags:
+        - database
+        - list
+    parameters: []
+components:
+  schemas: {}

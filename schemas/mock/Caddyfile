@@ -1,0 +1,11 @@
+http://localhost
+
+route /api/latest/database-store {
+	uri strip_prefix /api/latest/database-store
+	reverse_proxy api-database-store:4010
+}
+
+route /api/latest/record-store {
+	uri strip_prefix /api/latest/record-store
+	reverse_proxy api-record-store:4010
+}
