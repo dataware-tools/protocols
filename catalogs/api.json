@@ -10,7 +10,7 @@
     "name": "Database store",
     "description": "An API for storing meta-information of databases",
     "endpoint": "/database_store",
-    "schema": "https://raw.githubusercontent.com/dataware-tools/protocols/master/schemas/apis/api-database-store/schema.v1.yaml"
+    "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-database-store/schema.v1.yaml"
   },
   "recordStore": {
     "id": "record_store",
