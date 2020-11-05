@@ -33,7 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Database'
+                $ref: '#/components/schemas/DatabaseModel'
               examples: {}
   /databases:
     get:
@@ -70,22 +70,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DatabaseList'
+                $ref: '#/components/schemas/DatabaseListModel'
     parameters: []
 components:
   schemas:
-    DatabaseList:
+    DatabaseListModel:
       type: object
-      title: DatabaseList
-      properties:
-        count:
-          type: integer
-        number_of_pages:
-          type: integer
-        databases:
-          type: array
-          items:
-            $ref: '#/components/schemas/Database'
+      title: DatabaseListModel
       x-examples:
         example-1:
           count: 1
@@ -94,18 +85,18 @@ components:
               name: Small Driving Behavior Database
               description: ''
           number_of_pages: 1
-    Database:
-      title: Database
-      type: object
       properties:
-        database_id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-      required:
-        - database_id
+        count:
+          type: integer
+        number_of_pages:
+          type: integer
+        databases:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseModel'
+    DatabaseModel:
+      title: DatabaseModel
+      type: object
       x-examples:
         example-1:
           database_id: small_driving_behavior_database
@@ -115,3 +106,12 @@ components:
           database_id: default
           name: default database
           description: default database located in "/share/small_DrivingBehaviorDatabase"
+      properties:
+        database_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - database_id
