@@ -1,0 +1,72 @@
+openapi: 3.0.2
+info:
+  title: schema
+  version: '1.0'
+  description: Database related APIs
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  '/databases/{database_id}/raw':
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+    get:
+      summary: Get contents of record
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contents'
+      operationId: getRecordContent
+      description: Return contents of record.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                record_id:
+                  type: string
+                content:
+                  type: string
+                start_timestamp:
+                  type: number
+                end_timestamp:
+                  type: number
+              required:
+                - record_id
+                - content
+components:
+  schemas:
+    Contents:
+      title: Contents
+      type: object
+      properties:
+        metadata:
+          type: object
+        timestamps:
+          type: array
+          items: {}
+        data:
+          type: array
+          items: {}
+        columns:
+          type: array
+          items: {}
+      required:
+        - metadata
+        - timestamps
+        - data
+        - columns
