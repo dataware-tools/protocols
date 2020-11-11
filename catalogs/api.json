@@ -16,6 +16,7 @@
     "id": "record_store",
     "name": "Record store",
     "description": "An API for fetching record metadata",
-    "endpoint": "/record_store"
+    "endpoint": "/record_store",
+    "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-record-store/schema.v1.yaml"
   }
 }
