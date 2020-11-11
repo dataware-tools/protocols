@@ -1,8 +1,8 @@
 openapi: 3.0.2
 info:
-  title: schema
+  title: content
   version: '1.0'
-  description: Database related APIs
+  description: Retrieve content of record
   contact:
     email: contact@hdwlab.co.jp
     name: Human Dataware Lab. Co. Ltd.
@@ -20,7 +20,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Get contents of record
+      summary: Get content of record
       tags: []
       responses:
         '200':
@@ -28,9 +28,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Contents'
-      operationId: getRecordContent
-      description: Return contents of record.
+                $ref: '#/components/schemas/Content'
+      operationId: getContent
+      description: 'Return single content, even if multiple contents is found.'
       requestBody:
         content:
           application/json:
@@ -48,9 +48,11 @@ paths:
               required:
                 - record_id
                 - content
+                - start_timestamp
+                - end_timestamp
 components:
   schemas:
-    Contents:
+    Content:
       title: Contents
       type: object
       properties:
