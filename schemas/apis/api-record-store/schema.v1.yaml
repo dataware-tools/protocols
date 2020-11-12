@@ -12,7 +12,7 @@ info:
 servers:
   - url: 'http://localhost:8080'
 paths:
-  '/api/latest/record_store/{database_id}/records/{record_id}':
+  '/{database_id}/records/{record_id}':
     get:
       operationId: retrieveRecordViewSet
       description: Return the detail of the record.
@@ -48,7 +48,7 @@ paths:
       tags:
         - records
         - get
-  '/api/latest/record_store/{database_id}/records':
+  '/{database_id}/records':
     get:
       operationId: listRecordViewSets
       description: Return the list of records.
