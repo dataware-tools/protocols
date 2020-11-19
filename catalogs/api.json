@@ -18,5 +18,12 @@
     "description": "An API for fetching record metadata",
     "endpoint": "/record_store",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-record-store/schema.v1.yaml"
+  },
+  "dataBrowserConfigStore": {
+    "id": "data_browser_config_store",
+    "name": "Data-browser config store",
+    "description": "An API for storoing configs of data-browser",
+    "endpoint": "/data_browser_config_store",
+    "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-data-browser-config-store/schema.v1.yaml"
   }
 }
