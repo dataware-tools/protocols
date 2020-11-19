@@ -1,0 +1,353 @@
+openapi: 3.0.2
+info:
+  title: schema
+  version: '1.0'
+  description: Config related APIs for data-browser
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  '/configs/{config_id}':
+    get:
+      operationId: retrieveConfig
+      description: Return information of the config.
+      parameters:
+        - name: config_id
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+      summary: Get detail information of the config
+      tags:
+        - config
+        - get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigGetModel'
+              examples: {}
+    patch:
+      summary: ''
+      operationId: updateConfig
+      parameters:
+        - name: config_id
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigModel'
+      description: Update the config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigPatchModel'
+    delete:
+      summary: ''
+      operationId: deleteConfig
+      parameters:
+        - name: config_id
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Delete the config
+  /configs:
+    get:
+      operationId: listConfigs
+      description: Return the list of configs.
+      parameters:
+        - name: search_keyword
+          description: Search keyword for name of configs
+          in: query
+          schema:
+            type: string
+      summary: Get list of configs
+      tags:
+        - config
+        - list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigListModel'
+    parameters: []
+    post:
+      summary: ''
+      operationId: createConfig
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigModel'
+      description: Create a new config
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigPostModel'
+components:
+  schemas:
+    ConfigListModel:
+      description: ''
+      type: object
+      properties:
+        configs:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            required:
+              - id
+              - name
+              - description
+              - created_at
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+                minLength: 1
+              description:
+                type: string
+                minLength: 1
+              created_at:
+                type: string
+                minLength: 1
+        number_of_pages:
+          type: number
+      required:
+        - configs
+        - number_of_pages
+      x-examples:
+        example-1:
+          configs:
+            - id: 1
+              name: test2
+              description: Description
+              created_at: '2020-11-18T10:57:26.717025+00:00'
+          number_of_pages: 1
+    ConfigModel:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 2
+          name: test
+          description: Description
+          image:
+            id: 2
+            name: image-name
+            tag: image-tag
+            created_at: '2020-11-18T11:35:10.486163+00:00'
+            configs:
+              - id: 2
+                name: test
+                description: Description
+                image:
+                  id: 2
+                  name: image-name
+                  tag: image-tag
+                  created_at: '2020-11-18T11:35:10.486163+00:00'
+                config_map:
+                  id: 2
+                  data: '{}'
+                  created_at: '2020-11-18T11:35:10.493693+00:00'
+                created_at: '2020-11-18T11:35:10.500228+00:00'
+          config_map:
+            id: 2
+            data: '{}'
+            created_at: '2020-11-18T11:35:10.493693+00:00'
+            configs:
+              - id: 2
+                name: test
+                description: Description
+                image:
+                  id: 2
+                  name: image-name
+                  tag: image-tag
+                  created_at: '2020-11-18T11:35:10.486163+00:00'
+                config_map:
+                  id: 2
+                  data: '{}'
+                  created_at: '2020-11-18T11:35:10.493693+00:00'
+                created_at: '2020-11-18T11:35:10.500228+00:00'
+          created_at: '2020-11-18T11:35:10.500228+00:00'
+      title: ConfigModel
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        image:
+          type: object
+          required:
+            - id
+            - name
+            - tag
+            - created_at
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+              minLength: 1
+            tag:
+              type: string
+              minLength: 1
+            created_at:
+              type: string
+              minLength: 1
+        config_map:
+          type: object
+          required:
+            - id
+            - data
+            - created_at
+          properties:
+            id:
+              type: number
+            data:
+              type: string
+              minLength: 1
+            created_at:
+              type: string
+              minLength: 1
+        created_at:
+          type: string
+          minLength: 1
+      required:
+        - id
+        - name
+        - description
+        - image
+        - config_map
+        - created_at
+    ConfigGetModel:
+      title: ConfigGetModel
+      type: object
+      properties:
+        config_id:
+          type: number
+        config:
+          $ref: '#/components/schemas/ConfigModel'
+      x-examples:
+        example-1:
+          config_id: '1'
+          config:
+            id: 1
+            name: test2
+            description: Description
+            image:
+              id: 1
+              name: image-name
+              tag: image-tag
+              created_at: '2020-11-18T10:57:26.704256+00:00'
+            config_map:
+              id: 1
+              data: '{}'
+              created_at: '2020-11-18T10:57:26.711490+00:00'
+            created_at: '2020-11-18T10:57:26.717025+00:00'
+    ConfigPostModel:
+      description: ''
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        image:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            tag:
+              type: string
+              minLength: 1
+          required:
+            - name
+            - tag
+        config_map:
+          type: object
+          properties:
+            data:
+              type: string
+              minLength: 1
+          required:
+            - data
+      required:
+        - name
+        - description
+        - image
+        - config_map
+    ConfigPatchModel:
+      description: ''
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          minLength: 1
+        image:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+            tag:
+              type: string
+              minLength: 1
+          required:
+            - name
+            - tag
+        config_map:
+          type: object
+          properties:
+            data:
+              type: string
+              minLength: 1
+          required:
+            - data
+      required:
+        - name
+        - description
+        - image
+        - config_map
