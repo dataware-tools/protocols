@@ -25,5 +25,12 @@
     "description": "An API for storoing configs of data-browser",
     "endpoint": "/data_browser_config_store",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-data-browser-config-store/schema.v1.yaml"
+  },
+  "jobStore": {
+    "id": "job_store",
+    "name": "Job store",
+    "description": "An API for jobs",
+    "endpoint": "/job_store",
+    "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-job-store/schema.v1.yaml"
   }
 }
