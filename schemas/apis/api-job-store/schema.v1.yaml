@@ -241,14 +241,19 @@ components:
       type: object
       x-examples:
         example-1:
-          uid: generic
+          uid: ros-provider
           job_type:
-            uid: generic
-            name: Generic job
-            description: Executes a script in a container
+            uid: ros-provider
+            name: Open WebViz with ROS-provider
+            description: Visualize data with WebViz using ROS-provider as backend
             tags:
-              - generic
+              - ros
               - job
+              - webviz
+              - service
+              - websocket
+              - ros-provider
+              - rosbridge
             scheme:
               input:
                 name:
@@ -259,7 +264,8 @@ components:
                   isRequired: false
                 image:
                   type: String
-                  isRequired: true
+                  default: 'hdwlab/rosbridge-rosbag-player:autoware-master'
+                  isRequired: false
                 configMap:
                   type: String
                   isRequired: true
@@ -268,9 +274,17 @@ components:
                 code:
                   type: Number
                   isRequired: true
+                js:
+                  type: String
+                  isExecutable: true
+                  isRequired: true
                 reason:
                   type: String
                   isRequired: false
+            args:
+              - id: path_to_rosbag
+                name: Path to rosbag
+                description: A rosbag file to play
       properties:
         uid:
           type: string
@@ -283,6 +297,7 @@ components:
             - description
             - tags
             - scheme
+            - args
           properties:
             uid:
               type: string
@@ -391,6 +406,21 @@ components:
                           type: boolean
                         isExecutable:
                           type: boolean
+            args:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  id:
+                    type: string
+                  description:
+                    type: string
+                required:
+                  - name
+                  - id
+                  - description
       required:
         - uid
         - job_type
