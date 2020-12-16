@@ -29,6 +29,14 @@
     "service": "api-data-browser-config-store:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-data-browser-config-store/schema.v1.yaml"
   },
+  "contentStore": {
+    "id": "content_store",
+    "name": "Content store",
+    "description": "An API for retrieving the content of files as an numpy array",
+    "endpoint": "/content_store",
+    "service": "api-content-store:8080",
+    "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-content-store/schema.v1.yaml"
+  },
   "jobStore": {
     "id": "job_store",
     "name": "Job store",
