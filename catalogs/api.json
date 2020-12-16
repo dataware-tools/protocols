@@ -36,5 +36,13 @@
     "endpoint": "/job_store",
     "service": "api-job-store:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-job-store/schema.v1.yaml"
+  },
+  "fileProvider": {
+    "id": "file_provider",
+    "name": "File provider",
+    "description": "An API for downloading files",
+    "endpoint": "/file_provider",
+    "service": "api-file-provider:8080",
+    "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-file-provider/schema.v1.yaml"
   }
 }
