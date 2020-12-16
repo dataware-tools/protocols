@@ -1,0 +1,55 @@
+openapi: 3.0.2
+info:
+  title: schema
+  version: '1.0'
+  description: An API for downloading files
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /file:
+    get:
+      operationId: getFile
+      description: Return the content of the file
+      parameters:
+        - name: path
+          description: File path
+          in: query
+          schema:
+            type: string
+          required: true
+        - name: database_id
+          description: Database ID (optional)
+          in: query
+          schema:
+            type: string
+        - name: record_id
+          description: Record ID (optional)
+          in: query
+          schema:
+            type: string
+        - name: content_type
+          description: 'MIME-Type. If given, this will be set to Content-type in the response header'
+          in: query
+          schema:
+            type: string
+      summary: Get list of database
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      tags:
+        - file
+        - download
+    parameters: []
+components:
+  schemas: {}
+tags:
+  - name: file
+  - name: download
