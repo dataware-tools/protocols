@@ -12,7 +12,7 @@ info:
 servers:
   - url: 'http://localhost:8080'
 paths:
-  '/databases/{database_id}/raw':
+  '/{database_id}/raw':
     parameters:
       - schema:
           type: string
