@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: content
+  title: api-content-store
   version: '1.0'
   description: Retrieve content of record
   contact:
@@ -48,8 +48,6 @@ paths:
               required:
                 - record_id
                 - content
-                - start_timestamp
-                - end_timestamp
 components:
   schemas:
     Content:
