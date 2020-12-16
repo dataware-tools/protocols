@@ -10,7 +10,7 @@
     "name": "Database store",
     "description": "An API for storing meta-information of databases",
     "endpoint": "/database_store",
-    "service": "api-database-store",
+    "service": "api-database-store:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-database-store/schema.v1.yaml"
   },
   "recordStore": {
@@ -18,7 +18,7 @@
     "name": "Record store",
     "description": "An API for fetching record metadata",
     "endpoint": "/record_store",
-    "service": "api-record-store",
+    "service": "api-record-store:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-record-store/schema.v1.yaml"
   },
   "dataBrowserConfigStore": {
@@ -26,7 +26,7 @@
     "name": "Data-browser config store",
     "description": "An API for storoing configs of data-browser",
     "endpoint": "/data_browser_config_store",
-    "service": "api-data-browser-config-store",
+    "service": "api-data-browser-config-store:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-data-browser-config-store/schema.v1.yaml"
   },
   "jobStore": {
@@ -34,7 +34,7 @@
     "name": "Job store",
     "description": "An API for jobs",
     "endpoint": "/job_store",
-    "service": "api-job-store",
+    "service": "api-job-store:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-job-store/schema.v1.yaml"
   }
 }
