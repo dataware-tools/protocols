@@ -21,7 +21,8 @@ paths:
         required: true
     get:
       summary: Get content of record
-      tags: []
+      tags:
+        - content
       responses:
         '200':
           description: OK
@@ -31,23 +32,29 @@ paths:
                 $ref: '#/components/schemas/Content'
       operationId: getContent
       description: 'Return single content, even if multiple contents is found.'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                record_id:
-                  type: string
-                content:
-                  type: string
-                start_timestamp:
-                  type: number
-                end_timestamp:
-                  type: number
-              required:
-                - record_id
-                - content
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          description: Record ID
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: content
+          description: Content name
+          required: true
+        - schema:
+            type: number
+          in: query
+          name: start_timestamp
+          description: Timestamp to extract content from
+        - schema:
+            type: number
+          in: query
+          name: end_timestamp
+          description: Timestamp to extract content to
 components:
   schemas:
     Content:
@@ -70,3 +77,5 @@ components:
         - timestamps
         - data
         - columns
+tags:
+  - name: content
