@@ -48,8 +48,118 @@ paths:
         - file
         - download
     parameters: []
+  /download:
+    post:
+      summary: ''
+      operationId: post-download
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadsPostedModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      description: Create a JWT to download a file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DownloadsPostModel'
+      tags:
+        - download
+        - jwt
+  '/download/{token}':
+    parameters:
+      - schema:
+          type: string
+        name: token
+        in: path
+        required: true
+        description: JWT token
+    get:
+      summary: Your GET endpoint
+      tags:
+        - download
+      operationId: get-download-token
+      description: Download a file
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+              examples:
+                example-1:
+                  value:
+                    reason: Invalid signature
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+              examples:
+                example-1:
+                  value:
+                    reason: No such file
 components:
-  schemas: {}
+  schemas:
+    DownloadsPostModel:
+      title: DownloadsPostModel
+      type: object
+      description: Post request for creating a JWT to download a file
+      properties:
+        path:
+          type: string
+          description: Path to a file to download
+        database_id:
+          type: string
+          description: Optional. Used for estimating content-type
+        record_id:
+          type: string
+          description: Optional. Used for estimating content-type
+        content_type:
+          type: string
+          description: 'If specified, Content-type in the response headers will contain this value'
+      required:
+        - path
+      x-examples:
+        example-1:
+          path: /opt/app/pyproject.toml
+    DownloadsPostedModel:
+      title: DownloadsPostedModel
+      type: object
+      description: Response of DownloadsPost
+      x-examples:
+        example-1:
+          token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhYmFzZV9pZCI6bnVsbCwicmVjb3JkX2lkIjpudWxsLCJwYXRoIjoiL29wdC9hcHAvcHlwcm9qZWN0LnRvbWwiLCJjb250ZW50X3R5cGUiOm51bGwsImlzcyI6ImFwaS1maWxlLXByb3ZpZGVyIiwiaWF0IjoxNjA4NTIzOTY3LCJuYmYiOjE2MDg1MjM5NjcsImV4cCI6MTYwODUyNzU2N30.61YBRWCctkQnCMVNlKHspz3cw1-RKhtCF0EI35Fdwo0
+      properties:
+        token:
+          type: string
+      required:
+        - token
+    ErrorModel:
+      title: ErrorModel
+      type: object
+      properties:
+        reason:
+          type: string
+      required:
+        - reason
+      description: Error
+      x-examples:
+        example-1:
+          reason: Invalid signature
 tags:
   - name: file
   - name: download
+  - name: jwt
