@@ -20,7 +20,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Get content of record
+      summary: Get content
       tags:
         - content
       responses:
@@ -30,6 +30,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Content'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
       operationId: getContent
       description: 'Return single content, even if multiple contents is found.'
       parameters:
@@ -55,6 +59,71 @@ paths:
           in: query
           name: end_timestamp
           description: Timestamp to extract content to
+    post:
+      summary: Create content
+      operationId: createContent
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+      description: 'Create content. If content already exists, this operation will fail.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                data:
+                  type: object
+              required:
+                - metadata
+                - data
+    put:
+      summary: Update content
+      operationId: updateContent
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+      description: 'Update content. Only when one record is found, this method succeed.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: object
+                  required:
+                    - record_id
+                    - content
+                  properties:
+                    database_id:
+                      type: string
+                    record_id:
+                      type: string
+                    sub_record_id:
+                      type: string
+                    content:
+                      type: string
+                data:
+                  type: object
+              required:
+                - query
+                - data
+        description: query is a part of record's identity.
 components:
   schemas:
     Content:
