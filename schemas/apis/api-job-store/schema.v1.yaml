@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: schema
+  title: job store
   version: '1.0'
   description: APIs for jobs
   contact:

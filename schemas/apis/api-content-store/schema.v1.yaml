@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: api-content-store
+  title: content store
   version: '1.0'
   description: Retrieve content of record
   contact:

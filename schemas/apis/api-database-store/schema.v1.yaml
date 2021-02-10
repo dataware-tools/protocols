@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: schema
+  title: database store
   version: '1.0'
   description: Database related APIs
   contact:

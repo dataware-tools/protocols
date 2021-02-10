@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: schema
+  title: file provider
   version: '1.0'
   description: An API for downloading files
   contact:

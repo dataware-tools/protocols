@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: schema
+  title: data browser config store
   version: '1.0'
   description: Config related APIs for data-browser
   contact:
