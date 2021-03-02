@@ -111,6 +111,20 @@ paths:
                 example-1:
                   value:
                     reason: No such file
+  /upload:
+    post:
+      summary: ''
+      operationId: uploadFile
+      responses:
+        '201':
+          description: Created
+      description: Upload a file
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: dir_name
+          required: true
 components:
   schemas:
     DownloadsPostModel:
