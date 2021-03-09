@@ -14,7 +14,7 @@ servers:
 paths:
   /file:
     get:
-      operationId: getFile
+      operationId: downloadFile
       description: Return the content of the file
       parameters:
         - name: path
@@ -86,7 +86,7 @@ paths:
       summary: Download file
       tags:
         - download
-      operationId: downloadFile
+      operationId: downloadFileByJwt
       description: Download a file
       responses:
         '200':

@@ -14,7 +14,7 @@ servers:
 paths:
   '/configs/{config_id}':
     get:
-      operationId: retrieveConfig
+      operationId: getConfig
       description: Return information of the config.
       parameters:
         - name: config_id

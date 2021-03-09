@@ -21,7 +21,7 @@ paths:
         required: true
     get:
       summary: Get job detail
-      operationId: getJobByUid
+      operationId: getJob
       responses:
         '200':
           description: OK
@@ -32,7 +32,7 @@ paths:
       description: Get detail of a job
     delete:
       summary: Delete job
-      operationId: deleteJobByUid
+      operationId: deleteJob
       responses:
         '200':
           description: OK
@@ -91,7 +91,7 @@ paths:
         required: true
     get:
       summary: Get job-type detail
-      operationId: getJobTypesByUid
+      operationId: getJobTypes
       responses:
         '200':
           description: OK
@@ -137,7 +137,7 @@ paths:
         required: true
     get:
       summary: Get job-template detail
-      operationId: getJobTemplateById
+      operationId: getJobTemplate
       responses:
         '200':
           description: OK
@@ -148,7 +148,7 @@ paths:
       description: Get detail of a job-template
     patch:
       summary: Update job-template
-      operationId: UpdateJobTemplateById
+      operationId: UpdateJobTemplate
       responses:
         '200':
           description: OK
@@ -164,7 +164,7 @@ paths:
               $ref: '#/components/schemas/JobTemplatePatchModel'
     delete:
       summary: Delete job-template
-      operationId: deleteJobTemplateById
+      operationId: deleteJobTemplate
       responses:
         '200':
           description: OK

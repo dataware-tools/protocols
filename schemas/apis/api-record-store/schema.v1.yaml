@@ -14,7 +14,7 @@ servers:
 paths:
   '/{database_id}/records/{record_id}':
     get:
-      operationId: getRecordById
+      operationId: getRecord
       description: Return the detail of the record.
       parameters:
         - name: database_id
