@@ -26,7 +26,6 @@ paths:
       summary: Get detail information of the database
       tags:
         - database
-        - get
       responses:
         '200':
           description: OK
@@ -63,7 +62,6 @@ paths:
       summary: Get list of database
       tags:
         - database
-        - list
       responses:
         '200':
           description: OK
@@ -115,3 +113,5 @@ components:
           type: string
       required:
         - database_id
+tags:
+  - name: database

@@ -45,7 +45,6 @@ paths:
         '404':
           description: Not Found
       tags:
-        - file
         - download
     parameters: []
   /download:
@@ -73,7 +72,6 @@ paths:
               $ref: '#/components/schemas/DownloadsPostModel'
       tags:
         - download
-        - jwt
   '/download/{token}':
     parameters:
       - schema:
@@ -125,6 +123,8 @@ paths:
           in: query
           name: dir_name
           required: true
+      tags:
+        - upload
 components:
   schemas:
     DownloadsPostModel:
@@ -174,6 +174,5 @@ components:
         example-1:
           reason: Invalid signature
 tags:
-  - name: file
   - name: download
-  - name: jwt
+  - name: upload

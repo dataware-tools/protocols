@@ -85,6 +85,8 @@ paths:
               required:
                 - metadata
                 - data
+      tags:
+        - content
     put:
       summary: Update content
       operationId: updateContent
@@ -124,6 +126,8 @@ paths:
                 - query
                 - data
         description: query is a part of record's identity.
+      tags:
+        - content
 components:
   schemas:
     Content:
@@ -146,5 +150,8 @@ components:
         - timestamps
         - data
         - columns
+  responses: {}
+  parameters: {}
+  examples: {}
 tags:
   - name: content
