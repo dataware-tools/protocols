@@ -20,8 +20,8 @@ paths:
         in: path
         required: true
     get:
-      summary: ''
-      operationId: get-jobs-job_id
+      summary: Get job detail
+      operationId: getJobByUid
       responses:
         '200':
           description: OK
@@ -31,8 +31,8 @@ paths:
                 $ref: '#/components/schemas/JobModel'
       description: Get detail of a job
     delete:
-      summary: ''
-      operationId: delete-jobs-job_uid
+      summary: Delete job
+      operationId: deleteJobByUid
       responses:
         '200':
           description: OK
@@ -44,8 +44,8 @@ paths:
   /jobs:
     parameters: []
     get:
-      summary: ''
-      operationId: get-jobs
+      summary: Get list of jobs
+      operationId: listJobs
       responses:
         '200':
           description: OK
@@ -55,8 +55,8 @@ paths:
                 $ref: '#/components/schemas/JobsModel'
       description: Get a list of jobs
     post:
-      summary: ''
-      operationId: post-jobs
+      summary: Create job
+      operationId: createJob
       responses:
         '200':
           description: OK
@@ -72,8 +72,8 @@ paths:
               $ref: '#/components/schemas/JobPostModel'
   /job_types:
     get:
-      summary: ''
-      operationId: get-job_types
+      summary: Get list of job-types
+      operationId: listJobTypes
       responses:
         '200':
           description: OK
@@ -90,8 +90,8 @@ paths:
         in: path
         required: true
     get:
-      summary: ''
-      operationId: get-job_types-job_type_uid
+      summary: Get job-type detail
+      operationId: getJobTypesByUid
       responses:
         '200':
           description: OK
@@ -102,8 +102,8 @@ paths:
       description: Get detail of a job-type
   /job_templates:
     get:
-      summary: ''
-      operationId: get-job_templates
+      summary: Get list of job-templates
+      operationId: listJobTemplates
       responses:
         '200':
           description: OK
@@ -113,8 +113,8 @@ paths:
                 $ref: '#/components/schemas/JobTemplatesModel'
       description: Get a list of job-templates
     post:
-      summary: ''
-      operationId: post-job_templates
+      summary: Create job template
+      operationId: createJobTemplate
       responses:
         '200':
           description: OK
@@ -136,8 +136,8 @@ paths:
         in: path
         required: true
     get:
-      summary: ''
-      operationId: get-job_templates-job_template_id
+      summary: Get job-template detail
+      operationId: getJobTemplateById
       responses:
         '200':
           description: OK
@@ -147,8 +147,8 @@ paths:
                 $ref: '#/components/schemas/JobTemplateModel'
       description: Get detail of a job-template
     patch:
-      summary: ''
-      operationId: patch-job_templates-job_template_id
+      summary: Update job-template
+      operationId: UpdateJobTemplateById
       responses:
         '200':
           description: OK
@@ -163,8 +163,8 @@ paths:
             schema:
               $ref: '#/components/schemas/JobTemplatePatchModel'
     delete:
-      summary: ''
-      operationId: delete-job_templates-job_template_id
+      summary: Delete job-template
+      operationId: deleteJobTemplateById
       responses:
         '200':
           description: OK

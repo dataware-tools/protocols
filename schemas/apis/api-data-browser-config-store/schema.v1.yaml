@@ -36,7 +36,7 @@ paths:
                 $ref: '#/components/schemas/ConfigGetModel'
               examples: {}
     patch:
-      summary: ''
+      summary: Update config
       operationId: updateConfig
       parameters:
         - name: config_id
@@ -59,7 +59,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ConfigPatchModel'
     delete:
-      summary: ''
+      summary: Delete Config
       operationId: deleteConfig
       parameters:
         - name: config_id
@@ -100,7 +100,7 @@ paths:
                 $ref: '#/components/schemas/ConfigListModel'
     parameters: []
     post:
-      summary: ''
+      summary: Create config
       operationId: createConfig
       responses:
         '200':
