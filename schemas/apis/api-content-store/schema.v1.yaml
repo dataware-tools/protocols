@@ -150,8 +150,6 @@ components:
         - timestamps
         - data
         - columns
-  responses: {}
-  parameters: {}
-  examples: {}
+
 tags:
   - name: content
