@@ -46,8 +46,7 @@ paths:
               examples: {}
       summary: Get detail information of the record
       tags:
-        - records
-        - get
+        - record
   '/{database_id}/records':
     get:
       operationId: listRecordViewSets
@@ -96,8 +95,7 @@ paths:
             examples: {}
       summary: Get list of records
       tags:
-        - records
-        - list
+        - record
     parameters: []
 components:
   schemas:
@@ -285,3 +283,5 @@ components:
               content-type: text/csv
               start_timestamp: 1489728491
               end_timestamp: 1489728570.957
+tags:
+  - name: record

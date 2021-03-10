@@ -26,7 +26,6 @@ paths:
       summary: Get detail information of the config
       tags:
         - config
-        - get
       responses:
         '200':
           description: OK
@@ -58,6 +57,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConfigPatchModel'
+      tags:
+        - config
     delete:
       summary: ''
       operationId: deleteConfig
@@ -77,6 +78,8 @@ paths:
                 type: object
                 properties: {}
       description: Delete the config
+      tags:
+        - config
   /configs:
     get:
       operationId: listConfigs
@@ -90,7 +93,6 @@ paths:
       summary: Get list of configs
       tags:
         - config
-        - list
       responses:
         '200':
           description: OK
@@ -115,6 +117,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConfigPostModel'
+      tags:
+        - config
 components:
   schemas:
     ConfigListModel:
@@ -351,3 +355,5 @@ components:
         - description
         - image
         - config_map
+tags:
+  - name: config

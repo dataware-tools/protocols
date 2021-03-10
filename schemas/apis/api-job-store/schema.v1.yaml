@@ -30,6 +30,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobModel'
       description: Get detail of a job
+      tags:
+        - job
     delete:
       summary: ''
       operationId: delete-jobs-job_uid
@@ -41,6 +43,8 @@ paths:
               schema:
                 type: object
       description: Delete a job
+      tags:
+        - job
   /jobs:
     parameters: []
     get:
@@ -54,6 +58,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobsModel'
       description: Get a list of jobs
+      tags:
+        - job
     post:
       summary: ''
       operationId: post-jobs
@@ -70,6 +76,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/JobPostModel'
+      tags:
+        - job
   /job_types:
     get:
       summary: ''
@@ -82,6 +90,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobTypesModel'
       description: Get a list of job-types
+      tags:
+        - jobType
   '/job_types/{job_type_uid}':
     parameters:
       - schema:
@@ -100,6 +110,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobTypeModel'
       description: Get detail of a job-type
+      tags:
+        - jobType
   /job_templates:
     get:
       summary: ''
@@ -112,6 +124,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobTemplatesModel'
       description: Get a list of job-templates
+      tags:
+        - jobTemplate
     post:
       summary: ''
       operationId: post-job_templates
@@ -128,6 +142,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/JobTemplatePostModel'
+      tags:
+        - jobTemplate
   '/job_templates/{job_template_id}':
     parameters:
       - schema:
@@ -146,6 +162,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/JobTemplateModel'
       description: Get detail of a job-template
+      tags:
+        - jobTemplate
     patch:
       summary: ''
       operationId: patch-job_templates-job_template_id
@@ -162,6 +180,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/JobTemplatePatchModel'
+      tags:
+        - jobTemplate
     delete:
       summary: ''
       operationId: delete-job_templates-job_template_id
@@ -173,6 +193,8 @@ paths:
               schema:
                 type: object
       description: Delete a job-template
+      tags:
+        - jobTemplate
 components:
   schemas:
     JobTypesModel:
@@ -4055,3 +4077,7 @@ components:
       required:
         - job_type_uid
         - data
+tags:
+  - name: job
+  - name: jobTemplate
+  - name: jobType
