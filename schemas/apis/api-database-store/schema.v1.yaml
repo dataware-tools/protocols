@@ -14,7 +14,7 @@ servers:
 paths:
   '/databases/{database_id}':
     get:
-      operationId: retrieveDatabase
+      operationId: getDatabase
       description: Return information of the database.
       parameters:
         - name: database_id

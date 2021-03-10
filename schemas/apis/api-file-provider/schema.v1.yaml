@@ -14,7 +14,7 @@ servers:
 paths:
   /file:
     get:
-      operationId: getFile
+      operationId: downloadFile
       description: Return the content of the file
       parameters:
         - name: path
@@ -38,7 +38,7 @@ paths:
           in: query
           schema:
             type: string
-      summary: Get list of database
+      summary: Get file
       responses:
         '200':
           description: OK
@@ -49,8 +49,8 @@ paths:
     parameters: []
   /download:
     post:
-      summary: ''
-      operationId: post-download
+      summary: Create JWT to download file
+      operationId: createJwtToDownloadFile
       responses:
         '200':
           description: OK
@@ -81,10 +81,10 @@ paths:
         required: true
         description: JWT token
     get:
-      summary: Your GET endpoint
+      summary: Download file
       tags:
         - download
-      operationId: get-download-token
+      operationId: downloadFileByJwt
       description: Download a file
       responses:
         '200':
@@ -111,7 +111,7 @@ paths:
                     reason: No such file
   /upload:
     post:
-      summary: ''
+      summary: Upload file
       operationId: uploadFile
       responses:
         '201':

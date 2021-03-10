@@ -20,8 +20,8 @@ paths:
         in: path
         required: true
     get:
-      summary: ''
-      operationId: get-jobs-job_id
+      summary: Get job detail
+      operationId: getJob
       responses:
         '200':
           description: OK
@@ -33,8 +33,8 @@ paths:
       tags:
         - job
     delete:
-      summary: ''
-      operationId: delete-jobs-job_uid
+      summary: Delete job
+      operationId: deleteJob
       responses:
         '200':
           description: OK
@@ -48,8 +48,8 @@ paths:
   /jobs:
     parameters: []
     get:
-      summary: ''
-      operationId: get-jobs
+      summary: Get list of jobs
+      operationId: listJobs
       responses:
         '200':
           description: OK
@@ -61,8 +61,8 @@ paths:
       tags:
         - job
     post:
-      summary: ''
-      operationId: post-jobs
+      summary: Create job
+      operationId: createJob
       responses:
         '200':
           description: OK
@@ -80,8 +80,8 @@ paths:
         - job
   /job_types:
     get:
-      summary: ''
-      operationId: get-job_types
+      summary: Get list of job-types
+      operationId: listJobTypes
       responses:
         '200':
           description: OK
@@ -100,8 +100,8 @@ paths:
         in: path
         required: true
     get:
-      summary: ''
-      operationId: get-job_types-job_type_uid
+      summary: Get job-type detail
+      operationId: getJobTypes
       responses:
         '200':
           description: OK
@@ -114,8 +114,8 @@ paths:
         - jobType
   /job_templates:
     get:
-      summary: ''
-      operationId: get-job_templates
+      summary: Get list of job-templates
+      operationId: listJobTemplates
       responses:
         '200':
           description: OK
@@ -127,8 +127,8 @@ paths:
       tags:
         - jobTemplate
     post:
-      summary: ''
-      operationId: post-job_templates
+      summary: Create job template
+      operationId: createJobTemplate
       responses:
         '200':
           description: OK
@@ -152,8 +152,8 @@ paths:
         in: path
         required: true
     get:
-      summary: ''
-      operationId: get-job_templates-job_template_id
+      summary: Get job-template detail
+      operationId: getJobTemplate
       responses:
         '200':
           description: OK
@@ -165,8 +165,8 @@ paths:
       tags:
         - jobTemplate
     patch:
-      summary: ''
-      operationId: patch-job_templates-job_template_id
+      summary: Update job-template
+      operationId: UpdateJobTemplate
       responses:
         '200':
           description: OK
@@ -183,8 +183,8 @@ paths:
       tags:
         - jobTemplate
     delete:
-      summary: ''
-      operationId: delete-job_templates-job_template_id
+      summary: Delete job-template
+      operationId: deleteJobTemplate
       responses:
         '200':
           description: OK

@@ -14,7 +14,7 @@ servers:
 paths:
   '/{database_id}/records/{record_id}':
     get:
-      operationId: retrieveRecordViewSet
+      operationId: getRecord
       description: Return the detail of the record.
       parameters:
         - name: database_id
@@ -49,7 +49,7 @@ paths:
         - record
   '/{database_id}/records':
     get:
-      operationId: listRecordViewSets
+      operationId: listRecords
       description: Return the list of records.
       parameters:
         - name: database_id
