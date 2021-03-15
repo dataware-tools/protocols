@@ -52,5 +52,13 @@
     "endpoint": "/file_provider",
     "service": "api-file-provider:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-file-provider/schema.v1.yaml"
+  },
+  "permissionManager": {
+  "id": "permission_manager",
+  "name": "Permission manager",
+  "description": "An API for managing permissions",
+  "endpoint": "/permission_manager",
+  "service": "api-permission-manager:8080",
+  "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-permission-manager/schema.v1.yaml"
   }
 }
