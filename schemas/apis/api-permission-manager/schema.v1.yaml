@@ -1,0 +1,48 @@
+openapi: 3.0.2
+info:
+  title: permission store
+  version: '1.0'
+  description: Permision manage APIs
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /users:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    roles:
+                      type: array
+                      items:
+                        type: string
+                    id:
+                      type: string
+      operationId: getUsers
+      description: Get user list
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Authorization
+          description: Auth0 token
+components:
+  schemas: {}
+tags:
+  - name: record
