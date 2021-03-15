@@ -22,133 +22,122 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 description: ''
-                minItems: 1
-                uniqueItems: true
-                items:
-                  type: object
-                  properties:
-                    user_id:
-                      type: string
-                      minLength: 1
-                    email:
-                      type: string
-                      minLength: 1
-                    email_verified:
-                      type: boolean
-                    username:
-                      type: string
-                      minLength: 1
-                    phone_number:
-                      type: string
-                      minLength: 1
-                    phone_verified:
-                      type: boolean
-                    created_at:
-                      type: string
-                    updated_at:
-                      type: string
-                    identities:
-                      type: array
-                      uniqueItems: true
-                      minItems: 1
-                      items:
-                        type: object
-                        properties:
-                          connection:
-                            type: string
-                            minLength: 1
-                          user_id:
-                            type: string
-                            minLength: 1
-                          provider:
-                            type: string
-                            minLength: 1
-                          isSocial:
-                            type: boolean
-                        required:
-                          - connection
-                          - user_id
-                          - provider
-                          - isSocial
-                    app_metadata:
+                type: object
+                properties:
+                  start:
+                    type: number
+                  limit:
+                    type: number
+                  length:
+                    type: number
+                  users:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
                       type: object
-                    user_metadata:
-                      type: object
-                    picture:
-                      type: string
-                    name:
-                      type: string
-                    nickname:
-                      type: string
-                    multifactor:
-                      type: array
-                      items:
-                        type: object
-                    last_ip:
-                      type: string
-                    last_login:
-                      type: string
-                    logins_count:
-                      type: number
-                    blocked:
-                      type: boolean
-                    given_name:
-                      type: string
-                    family_name:
-                      type: string
-                    roles:
-                      type: array
-                      items:
-                        type: string
-                  required:
-                    - user_id
-                    - email
-                    - email_verified
-                    - username
-                    - phone_number
-                    - phone_verified
-                    - created_at
-                    - updated_at
-                    - identities
-                    - app_metadata
-                    - user_metadata
-                    - picture
-                    - name
-                    - nickname
-                    - multifactor
-                    - last_ip
-                    - last_login
-                    - logins_count
-                    - blocked
-                    - given_name
-                    - family_name
-              examples:
-                example-1:
-                  value:
-                    - created_at: '2020-12-14T02:23:54.752Z'
-                      email: tarou.hdl@hdwlab.co.jp
-                      email_verified: true
-                      family_name: HDL
-                      given_name: Tarou
-                      identities:
-                        - provider: google-oauth2
-                          user_id: '1080259335512354542332'
-                          connection: google-oauth2
-                          isSocial: true
-                      locale: ja
-                      name: Tarou HDL
-                      nickname: THDL
-                      picture: 'https://lh5.googleusercontent.com/photo.jpg'
-                      updated_at: '2021-03-08T07:51:52.456Z'
-                      user_id: google-oauth2|1080259335512354542332
-                      last_login: '2021-03-08T07:51:52.455Z'
-                      last_ip: 133.6.156.91
-                      logins_count: 5
-                      roles:
-                        - admin
-                        - normal-user
+                      properties:
+                        created_at:
+                          type: string
+                          minLength: 1
+                        email:
+                          type: string
+                          minLength: 1
+                        email_verified:
+                          type: boolean
+                        family_name:
+                          type: string
+                          minLength: 1
+                        given_name:
+                          type: string
+                          minLength: 1
+                        identities:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            type: object
+                            properties:
+                              provider:
+                                type: string
+                                minLength: 1
+                              user_id:
+                                type: string
+                                minLength: 1
+                              connection:
+                                type: string
+                                minLength: 1
+                              isSocial:
+                                type: boolean
+                            required:
+                              - provider
+                              - user_id
+                              - connection
+                              - isSocial
+                        locale:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        nickname:
+                          type: string
+                          minLength: 1
+                        picture:
+                          type: string
+                          minLength: 1
+                        updated_at:
+                          type: string
+                          minLength: 1
+                        user_id:
+                          type: string
+                          minLength: 1
+                        last_login:
+                          type: string
+                          minLength: 1
+                        last_ip:
+                          type: string
+                          minLength: 1
+                        logins_count:
+                          type: number
+                        app_metadata:
+                          type: object
+                          properties:
+                            roles:
+                              type: array
+                              items:
+                                type: object
+                          required:
+                            - roles
+                        roles:
+                          type: array
+                          items:
+                            type: string
+                      required:
+                        - created_at
+                        - email
+                        - email_verified
+                        - family_name
+                        - given_name
+                        - locale
+                        - name
+                        - nickname
+                        - picture
+                        - updated_at
+                        - user_id
+                        - last_login
+                        - last_ip
+                        - logins_count
+                  total:
+                    type: number
+                required:
+                  - start
+                  - limit
+                  - length
+                  - users
+                  - total
+              examples: {}
       operationId: getUsers
       description: Get user list
       parameters:
