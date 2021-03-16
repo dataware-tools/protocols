@@ -14,8 +14,9 @@ servers:
 paths:
   /users:
     get:
-      summary: Your GET endpoint
-      tags: []
+      summary: Get list of users
+      tags:
+        - user
       responses:
         '200':
           description: OK
@@ -138,15 +139,303 @@ paths:
                   - users
                   - total
               examples: {}
-      operationId: getUsers
-      description: Get user list
+      operationId: listUsers
+      description: Get user list.
       parameters:
         - schema:
-            type: string
-          in: header
-          name: Authorization
-          description: Auth0 token
+            type: integer
+          in: query
+          name: page
+          description: Page index of the results to return.
+        - schema:
+            type: integer
+          in: query
+          name: per_page
+          description: Number of results per page.
+  '/users/{user_id}':
+    parameters:
+      - schema:
+          type: string
+        name: user_id
+        in: path
+        required: true
+    patch:
+      summary: Update user info.
+      operationId: updateUser
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      description: Update user info.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      tags:
+        - user
+    get:
+      summary: Get user
+      operationId: getUser
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      description: Get user
+      tags:
+        - user
+  /roles:
+    get:
+      summary: Get list of roles
+      tags:
+        - role
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+                required:
+                  - roles
+              examples:
+                example-1:
+                  value:
+                    roles:
+                      - db_permissions:
+                          - DBs:
+                              - db1
+                            permissions:
+                              - read_public
+                        description: sample
+                        users:
+                          - Tarou
+                        name: admin
+                        role_id: '1'
+      operationId: listRoles
+      description: Get list of roles.
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          description: Page index of the results to return.
+          name: page
+        - schema:
+            type: integer
+          in: query
+          name: per_page
+          description: Number of results per page.
+    post:
+      summary: Create role
+      operationId: createRole
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role_id:
+                    type: string
+                required:
+                  - role_id
+      description: Create role.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              required:
+                - name
+            examples:
+              example-1:
+                value:
+                  name: newRole
+      tags:
+        - role
+  '/roles/{role_id}':
+    get:
+      summary: Get detail of role
+      tags:
+        - role
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+              examples: {}
+      operationId: getRole
+      description: get detail of role
+    parameters:
+      - schema:
+          type: string
+        name: role_id
+        in: path
+        required: true
+    patch:
+      summary: Update role
+      operationId: updateRole
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+      description: Update role
+      tags:
+        - role
+    delete:
+      summary: Delete Role
+      operationId: deleteRole
+      responses:
+        '200':
+          description: OK
+      description: Delete Role
+      tags:
+        - role
+  /permissions:
+    get:
+      summary: Get list of permissions
+      tags:
+        - permission
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Permisson'
+      operationId: lsitPermissions
+      description: Get list of permissions
+  '/permissions/{permisson_id}':
+    parameters:
+      - schema:
+          type: string
+        name: permisson_id
+        in: path
+        required: true
+    get:
+      summary: Get permission
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Permisson'
+      operationId: getPermission
+      description: Get Permission
 components:
-  schemas: {}
+  schemas:
+    Role:
+      description: Model for role.
+      type: object
+      x-examples:
+        example-1:
+          role_id: '1'
+          name: example
+          db_permissions:
+            - DBs:
+                - db1
+                - db2
+              permissions:
+                - read_public
+                - write
+          description: example permission
+          users:
+            - Tarou
+            - Hanako
+      title: RoleModel
+      properties:
+        db_permissions:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              DBs:
+                type: array
+                items:
+                  type: string
+              permissions:
+                type: array
+                items:
+                  type: string
+        description:
+          type: string
+          minLength: 1
+        users:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        role_id:
+          type: string
+    User:
+      title: User
+      type: object
+      description: Model for user
+      x-examples:
+        example-1:
+          user_id: '1'
+          name: Tarou
+          roles:
+            - admin
+            - user
+      properties:
+        user_id:
+          type: string
+        name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+    Permisson:
+      title: Permisson
+      type: object
+      properties:
+        permission_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+      description: Model for permisson.
 tags:
-  - name: record
+  - name: permission
+  - name: role
+  - name: user
