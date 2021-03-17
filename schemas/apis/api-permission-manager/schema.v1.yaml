@@ -139,19 +139,25 @@ paths:
                   - users
                   - total
               examples: {}
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  total:
+                    type: integer
       operationId: listUsers
       description: Get user list.
       parameters:
-        - schema:
-            type: integer
-          in: query
-          name: page
-          description: Page index of the results to return.
-        - schema:
-            type: integer
-          in: query
-          name: per_page
-          description: Number of results per page.
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/search'
   '/users/{user_id}':
     parameters:
       - schema:
@@ -195,74 +201,42 @@ paths:
       summary: Get list of roles
       tags:
         - role
+      operationId: listRoles
+      description: Get list of roles.
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/search'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                description: ''
                 type: object
                 properties:
                   roles:
                     type: array
                     items:
                       $ref: '#/components/schemas/Role'
-                required:
-                  - roles
-              examples:
-                example-1:
-                  value:
-                    roles:
-                      - db_permissions:
-                          - DBs:
-                              - db1
-                            permissions:
-                              - read_public
-                        description: sample
-                        users:
-                          - Tarou
-                        name: admin
-                        role_id: '1'
-      operationId: listRoles
-      description: Get list of roles.
-      parameters:
-        - schema:
-            type: integer
-          in: query
-          description: Page index of the results to return.
-          name: page
-        - schema:
-            type: integer
-          in: query
-          name: per_page
-          description: Number of results per page.
+                  total:
+                    type: integer
     post:
       summary: Create role
       operationId: createRole
       responses:
-        '200':
-          description: OK
+        '201':
+          description: Created
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  role_id:
-                    type: string
-                required:
-                  - role_id
+                $ref: '#/components/schemas/Role'
       description: Create role.
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-              required:
-                - name
+              $ref: '#/components/schemas/Role'
             examples:
               example-1:
                 value:
@@ -328,11 +302,18 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Permisson'
+                type: object
+                properties:
+                  permissions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Permisson'
+                  total:
+                    type: integer
       operationId: lsitPermissions
       description: Get list of permissions
+      parameters:
+        - $ref: '#/components/parameters/search'
   '/permissions/{permisson_id}':
     parameters:
       - schema:
@@ -342,7 +323,8 @@ paths:
         required: true
     get:
       summary: Get permission
-      tags: []
+      tags:
+        - permission
       responses:
         '200':
           description: OK
@@ -374,32 +356,25 @@ components:
             - Hanako
       title: RoleModel
       properties:
-        db_permissions:
+        description:
+          type: string
+        name:
+          type: string
+        role_id:
+          type: string
+        permissions:
           type: array
-          uniqueItems: true
-          minItems: 1
           items:
             type: object
             properties:
-              DBs:
+              databases:
                 type: array
                 items:
                   type: string
               permissions:
                 type: array
                 items:
-                  type: string
-        description:
-          type: string
-          minLength: 1
-        users:
-          type: array
-          items:
-            type: string
-        name:
-          type: string
-        role_id:
-          type: string
+                  $ref: '#/components/schemas/Permisson'
     User:
       title: User
       type: object
@@ -419,22 +394,44 @@ components:
         roles:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Role'
     Permisson:
       title: Permisson
       type: object
+      description: Model for permisson.
+      x-examples:
+        example-1:
+          permission_id: read_public
+          name: read_public
       properties:
         permission_id:
           type: string
+          description: ''
         name:
           type: string
-        description:
-          type: string
-        roles:
-          type: array
-          items:
-            type: string
-      description: Model for permisson.
+  responses: {}
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Number of results per page.
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Page index of the results to return.
+    search:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Search keyword for name of records
 tags:
   - name: permission
   - name: role
