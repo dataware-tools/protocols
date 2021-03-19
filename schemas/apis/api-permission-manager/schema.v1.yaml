@@ -219,6 +219,12 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Role'
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+                  length:
+                    type: integer
                   total:
                     type: integer
     post:
