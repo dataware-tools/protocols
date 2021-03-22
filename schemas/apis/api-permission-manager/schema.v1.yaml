@@ -26,9 +26,9 @@ paths:
                 description: ''
                 type: object
                 properties:
-                  start:
+                  page:
                     type: number
-                  limit:
+                  per_page:
                     type: number
                   length:
                     type: number
@@ -37,104 +37,12 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      type: object
-                      properties:
-                        created_at:
-                          type: string
-                          minLength: 1
-                        email:
-                          type: string
-                          minLength: 1
-                        email_verified:
-                          type: boolean
-                        family_name:
-                          type: string
-                          minLength: 1
-                        given_name:
-                          type: string
-                          minLength: 1
-                        identities:
-                          type: array
-                          uniqueItems: true
-                          minItems: 1
-                          items:
-                            type: object
-                            properties:
-                              provider:
-                                type: string
-                                minLength: 1
-                              user_id:
-                                type: string
-                                minLength: 1
-                              connection:
-                                type: string
-                                minLength: 1
-                              isSocial:
-                                type: boolean
-                            required:
-                              - provider
-                              - user_id
-                              - connection
-                              - isSocial
-                        locale:
-                          type: string
-                          minLength: 1
-                        name:
-                          type: string
-                          minLength: 1
-                        nickname:
-                          type: string
-                          minLength: 1
-                        picture:
-                          type: string
-                          minLength: 1
-                        updated_at:
-                          type: string
-                          minLength: 1
-                        user_id:
-                          type: string
-                          minLength: 1
-                        last_login:
-                          type: string
-                          minLength: 1
-                        last_ip:
-                          type: string
-                          minLength: 1
-                        logins_count:
-                          type: number
-                        app_metadata:
-                          type: object
-                          properties:
-                            roles:
-                              type: array
-                              items:
-                                type: object
-                          required:
-                            - roles
-                        roles:
-                          type: array
-                          items:
-                            type: string
-                      required:
-                        - created_at
-                        - email
-                        - email_verified
-                        - family_name
-                        - given_name
-                        - locale
-                        - name
-                        - nickname
-                        - picture
-                        - updated_at
-                        - user_id
-                        - last_login
-                        - last_ip
-                        - logins_count
+                      $ref: '#/components/schemas/User'
                   total:
                     type: number
                 required:
-                  - start
-                  - limit
+                  - page
+                  - per_page
                   - length
                   - users
                   - total
@@ -180,7 +88,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/WriteUser'
+            examples: {}
       tags:
         - user
     get:
@@ -242,11 +151,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Role'
-            examples:
-              example-1:
-                value:
-                  name: newRole
+              $ref: '#/components/schemas/WriteRole'
+            examples: {}
       tags:
         - role
   '/roles/{role_id}':
@@ -284,7 +190,8 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Role'
+              $ref: '#/components/schemas/WriteRole'
+            examples: {}
       description: Update role
       tags:
         - role
@@ -297,11 +204,9 @@ paths:
       description: Delete Role
       tags:
         - role
-  /permissions:
+  /actions:
     get:
-      summary: Get list of permissions
-      tags:
-        - permission
+      summary: Get list of actions
       responses:
         '200':
           description: OK
@@ -310,36 +215,37 @@ paths:
               schema:
                 type: object
                 properties:
-                  permissions:
+                  actions:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Permisson'
-                  total:
-                    type: integer
-      operationId: lsitPermissions
-      description: Get list of permissions
+                      $ref: '#/components/schemas/Action'
+      operationId: lsitActions
+      description: Get list of actions
       parameters:
         - $ref: '#/components/parameters/search'
-  '/permissions/{permisson_id}':
+      tags:
+        - action
+    parameters: []
+  '/actions/{action_id}':
     parameters:
       - schema:
           type: string
-        name: permisson_id
+        name: action_id
         in: path
         required: true
     get:
-      summary: Get permission
-      tags:
-        - permission
+      summary: Get action
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Permisson'
-      operationId: getPermission
-      description: Get Permission
+                $ref: '#/components/schemas/Action'
+      operationId: getAction
+      description: Get Action
+      tags:
+        - action
 components:
   schemas:
     Role:
@@ -347,19 +253,16 @@ components:
       type: object
       x-examples:
         example-1:
+          description: example
+          name: role1
           role_id: '1'
-          name: example
-          db_permissions:
-            - DBs:
+          permissions:
+            - databases:
                 - db1
-                - db2
-              permissions:
-                - read_public
-                - write
-          description: example permission
-          users:
-            - Tarou
-            - Hanako
+                - db*
+              actions:
+                - action_id: '1'
+                  name: action1
       title: RoleModel
       properties:
         description:
@@ -377,10 +280,10 @@ components:
                 type: array
                 items:
                   type: string
-              permissions:
+              actions:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Permisson'
+                  $ref: '#/components/schemas/Action'
     User:
       title: User
       type: object
@@ -399,22 +302,57 @@ components:
           type: string
         roles:
           type: array
+          description: ''
           items:
-            $ref: '#/components/schemas/Role'
-    Permisson:
-      title: Permisson
+            type: object
+            properties:
+              name:
+                type: string
+              role_id:
+                type: string
+    Action:
+      title: Action
       type: object
-      description: Model for permisson.
+      description: Model for action.
       x-examples:
         example-1:
-          permission_id: read_public
+          action_id: read_public
           name: read_public
       properties:
-        permission_id:
+        action_id:
           type: string
           description: ''
         name:
           type: string
+    WriteUser:
+      title: WriteUser
+      type: object
+      properties:
+        role_ids:
+          type: array
+          items:
+            type: string
+      description: Model for writing user
+    WriteRole:
+      title: WriteRole
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        permissions:
+          type: object
+          properties:
+            databases:
+              type: array
+              description: array of regex pattern
+              items:
+                type: string
+            acion_ids:
+              type: array
+              items:
+                type: string
   responses: {}
   parameters:
     per_page:
@@ -439,6 +377,6 @@ components:
         type: string
       description: Search keyword for name of records
 tags:
-  - name: permission
+  - name: action
   - name: role
   - name: user
