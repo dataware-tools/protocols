@@ -257,7 +257,7 @@ components:
         name:
           type: string
         role_id:
-          type: string
+          type: integer
         permissions:
           type: array
           items:
@@ -314,12 +314,12 @@ components:
     WriteUser:
       title: WriteUser
       type: object
+      description: Model for writing user
       properties:
         role_ids:
           type: array
           items:
-            type: string
-      description: Model for writing user
+            type: integer
     WriteRole:
       title: WriteRole
       type: object
