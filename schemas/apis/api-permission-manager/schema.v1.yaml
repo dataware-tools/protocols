@@ -159,7 +159,7 @@ paths:
       description: get detail of role
     parameters:
       - schema:
-          type: string
+          type: integer
         name: role_id
         in: path
         required: true
@@ -296,7 +296,7 @@ components:
               name:
                 type: string
               role_id:
-                type: string
+                type: integer
     Action:
       title: Action
       type: object
