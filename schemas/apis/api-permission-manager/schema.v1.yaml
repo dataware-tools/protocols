@@ -1,6 +1,6 @@
 openapi: 3.0.2
 info:
-  title: permission store
+  title: permission manager
   version: '1.0'
   description: Permision manage APIs
   contact:
