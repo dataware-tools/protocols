@@ -23,42 +23,8 @@ paths:
           content:
             application/json:
               schema:
-                description: ''
-                type: object
-                properties:
-                  page:
-                    type: number
-                  per_page:
-                    type: number
-                  length:
-                    type: number
-                  users:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      $ref: '#/components/schemas/UserModel'
-                  total:
-                    type: number
-                required:
-                  - page
-                  - per_page
-                  - length
-                  - users
-                  - total
-              examples:
-                example-1:
-                  value:
-                    page: 0
-                    per_page: 0
-                    length: 0
-                    users:
-                      - user_id: string
-                        name: string
-                        roles:
-                          - name: string
-                            role_id: 0
-                    total: 0
+                $ref: '#/components/schemas/ListUsersResponse'
+              examples: {}
       operationId: listUsers
       description: Get user list.
       parameters:
@@ -81,13 +47,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserModel'
+                $ref: '#/components/schemas/UpdateUserResponse'
       description: Update user info.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WriteUser'
+              $ref: '#/components/schemas/UpdateUserRequest'
             examples: {}
       tags:
         - user
@@ -100,7 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserModel'
+                $ref: '#/components/schemas/GetUserResponse'
       description: Get user
       tags:
         - user
@@ -121,20 +87,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  roles:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Role'
-                  page:
-                    type: integer
-                  per_page:
-                    type: integer
-                  length:
-                    type: integer
-                  total:
-                    type: integer
+                $ref: '#/components/schemas/ListRolesResponse'
     post:
       summary: Create role
       operationId: createRole
@@ -144,13 +97,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Role'
+                $ref: '#/components/schemas/UpdateRoleResponse'
       description: Create role.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WriteRole'
+              $ref: '#/components/schemas/CreateRoleRequest'
             examples: {}
       tags:
         - role
@@ -165,7 +118,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Role'
+                $ref: '#/components/schemas/GetRoleResponse'
               examples: {}
       operationId: getRole
       description: get detail of role
@@ -184,12 +137,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Role'
+                $ref: '#/components/schemas/UpdateRoleResponse'
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WriteRole'
+              $ref: '#/components/schemas/UpdateRoleRequest'
             examples: {}
       description: Update role
       tags:
@@ -215,9 +168,7 @@ paths:
                 type: object
                 properties:
                   actions:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Action'
+                    $ref: '#/components/schemas/GetActionResponse'
       operationId: lsitActions
       description: Get list of actions
       parameters:
@@ -240,14 +191,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Action'
+                $ref: '#/components/schemas/ListActionsResponse'
       operationId: getAction
       description: Get Action
       tags:
         - action
 components:
   schemas:
-    Role:
+    RoleModel:
       description: Model for role.
       type: object
       x-examples:
@@ -272,6 +223,7 @@ components:
           type: integer
         permissions:
           type: array
+          description: ''
           items:
             type: object
             properties:
@@ -282,7 +234,12 @@ components:
               actions:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Action'
+                  $ref: '#/components/schemas/ActionModel'
+      required:
+        - description
+        - name
+        - role_id
+        - permissions
     UserModel:
       title: UserModel
       type: object
@@ -305,19 +262,19 @@ components:
           items:
             type: object
             properties:
+              role_id:
+                type: number
               name:
                 type: string
-              role_id:
-                type: integer
             required:
-              - name
               - role_id
+              - name
       required:
         - user_id
         - name
         - roles
-    Action:
-      title: Action
+    ActionModel:
+      title: ActionModel
       type: object
       description: Model for action.
       x-examples:
@@ -330,71 +287,121 @@ components:
           description: ''
         name:
           type: string
-    WriteUser:
-      title: WriteUser
+      required:
+        - action_id
+        - name
+    ListUsersResponse:
+      title: listUserResponse
       type: object
-      description: Model for writing user
       properties:
-        role_ids:
+        page:
+          type: number
+        per_page:
+          type: number
+        length:
+          type: number
+        total:
+          type: number
+        users:
           type: array
           items:
-            type: integer
-    WriteRole:
-      title: WriteRole
+            $ref: '#/components/schemas/UserModel'
+      required:
+        - page
+        - per_page
+        - length
+        - total
+        - users
+    GetUserResponse:
+      $ref: '#/components/schemas/UserModel'
+    UpdateUserResponse:
+      $ref: '#/components/schemas/UserModel'
+    GetRoleResponse:
+      $ref: '#/components/schemas/RoleModel'
+    UpdateRoleResponse:
+      $ref: '#/components/schemas/RoleModel'
+    ListRolesResponse:
+      title: listRolesResponse
       type: object
       properties:
+        page:
+          type: number
+        per_page:
+          type: number
+        length:
+          type: number
+        total:
+          type: number
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleModel'
+    ListActionsResponse:
+      title: listActionsResponse
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionModel'
+    UpdateRoleRequest:
+      title: updateRoleRequest
+      type: object
+      properties:
+        permissions:
+          type: array
+          items:
+            type: object
+            properties:
+              databases:
+                type: array
+                items:
+                  type: string
+              action_ids:
+                type: array
+                items:
+                  type: string
         name:
           type: string
         description:
           type: string
+    UpdateUserRequest:
+      title: updateUserRequest
+      type: object
+      properties:
+        role_ids:
+          type: array
+          description: role id array
+          items:
+            type: number
+    CreateRoleRequest:
+      title: CreateRoleRequest
+      type: object
+      properties:
+        name:
+          type: string
         permissions:
-          type: object
-          properties:
-            databases:
-              type: array
-              description: array of regex pattern
-              items:
-                type: string
-            acion_ids:
-              type: array
-              items:
-                type: string
-  responses:
-    listUsersRes:
-      description: Example response
-      content:
-        application/json:
-          schema:
+          type: array
+          items:
             type: object
             properties:
-              page:
-                type: string
-              per_page:
-                type: string
-              total:
-                type: string
-              length:
-                type: string
-              users:
-                $ref: '#/components/schemas/UserModel'
-            required:
-              - page
-              - per_page
-              - total
-              - length
-              - users
-    getUserRes:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UserModel'
-    updateUserRes:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UserModel'
+              databases:
+                type: array
+                items:
+                  type: string
+              action_ids:
+                type: array
+                items:
+                  type: string
+        description:
+          type: string
+    GetActionResponse:
+      title: GetActionResponse
+      type: object
+      properties:
+        actions:
+          $ref: '#/components/schemas/ActionModel'
+  responses: {}
   parameters:
     per_page:
       name: per_page
