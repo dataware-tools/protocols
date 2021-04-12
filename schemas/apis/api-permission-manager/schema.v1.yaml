@@ -165,10 +165,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  actions:
-                    $ref: '#/components/schemas/ListActionsResponse'
+                $ref: '#/components/schemas/ListActionsResponse'
       operationId: lsitActions
       description: Get list of actions
       parameters:
