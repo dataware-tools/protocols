@@ -235,6 +235,9 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/ActionModel'
+            required:
+              - databases
+              - actions
       required:
         - description
         - name
@@ -336,6 +339,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RoleModel'
+      required:
+        - page
+        - per_page
+        - length
+        - total
+        - roles
     ListActionsResponse:
       title: listActionsResponse
       type: object
@@ -344,6 +353,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ActionModel'
+      required:
+        - actions
     UpdateRoleRequest:
       title: updateRoleRequest
       type: object
@@ -401,6 +412,8 @@ components:
       properties:
         actions:
           $ref: '#/components/schemas/ActionModel'
+      required:
+        - actions
   responses: {}
   parameters:
     per_page:
