@@ -46,7 +46,19 @@ paths:
                   - length
                   - users
                   - total
-              examples: {}
+              examples:
+                example-1:
+                  value:
+                    page: 0
+                    per_page: 0
+                    length: 0
+                    users:
+                      - user_id: string
+                        name: string
+                        roles:
+                          - name: string
+                            role_id: 0
+                    total: 0
       operationId: listUsers
       description: Get user list.
       parameters:
@@ -271,8 +283,8 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/Action'
-    User:
-      title: User
+    UserModel:
+      title: UserModel
       type: object
       description: Model for user
       x-examples:
@@ -297,6 +309,13 @@ components:
                 type: string
               role_id:
                 type: integer
+            required:
+              - name
+              - role_id
+      required:
+        - user_id
+        - name
+        - roles
     Action:
       title: Action
       type: object
@@ -340,7 +359,42 @@ components:
               type: array
               items:
                 type: string
-  responses: {}
+  responses:
+    listUsersRes:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              page:
+                type: string
+              per_page:
+                type: string
+              total:
+                type: string
+              length:
+                type: string
+              users:
+                $ref: '#/components/schemas/UserModel'
+            required:
+              - page
+              - per_page
+              - total
+              - length
+              - users
+    getUserRes:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserModel'
+    updateUserRes:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserModel'
   parameters:
     per_page:
       name: per_page
