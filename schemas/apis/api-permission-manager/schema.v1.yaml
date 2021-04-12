@@ -168,7 +168,7 @@ paths:
                 type: object
                 properties:
                   actions:
-                    $ref: '#/components/schemas/GetActionResponse'
+                    $ref: '#/components/schemas/ListActionsResponse'
       operationId: lsitActions
       description: Get list of actions
       parameters:
@@ -191,7 +191,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListActionsResponse'
+                $ref: '#/components/schemas/GetActionResponse'
       operationId: getAction
       description: Get Action
       tags:
