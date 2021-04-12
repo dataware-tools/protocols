@@ -37,7 +37,7 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      $ref: '#/components/schemas/User'
+                      $ref: '#/components/schemas/UserModel'
                   total:
                     type: number
                 required:
@@ -81,7 +81,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserModel'
       description: Update user info.
       requestBody:
         content:
@@ -100,7 +100,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserModel'
       description: Get user
       tags:
         - user
