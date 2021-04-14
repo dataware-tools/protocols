@@ -166,7 +166,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListActionsResponse'
-      operationId: lsitActions
+      operationId: listActions
       description: Get list of actions
       parameters:
         - $ref: '#/components/parameters/search'
