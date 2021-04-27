@@ -25,5 +25,14 @@
     "urlPrefix": "/data-browser",
     "visibility": "private",
     "location": "internal"
+  },
+  "userManager": {
+    "id": "user-manager",
+    "icon": "users",
+    "name": "User manager",
+    "description": "authorize user",
+    "urlPrefix": "/user-manager",
+    "visibility": "private",
+    "location": "internal"
   }
 }
