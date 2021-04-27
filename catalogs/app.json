@@ -29,7 +29,7 @@
   "userManager": {
     "id": "user-manager",
     "icon": "users",
-    "name": "Users manager",
+    "name": "User manager",
     "description": "authorize user",
     "urlPrefix": "/user-manager",
     "visibility": "private",
