@@ -380,6 +380,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateFileRequest'
+      tags:
+        - file
 components:
   schemas:
     RecordModel:
