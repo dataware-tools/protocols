@@ -13,16 +13,16 @@ servers:
   - url: 'http://localhost:8080'
 paths:
   '/records/{record_id}':
+    parameters:
+      - schema:
+          type: string
+        name: record_id
+        in: path
+        required: true
     get:
       operationId: getRecord
       description: Return the detail of the record.
       parameters:
-        - name: record_id
-          in: path
-          required: true
-          description: record_id
-          schema:
-            type: string
         - schema:
             type: string
           in: query
@@ -243,16 +243,15 @@ paths:
                         - center
                         - timestamps
   '/databases/{database_id}':
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
     get:
       operationId: getDatabase
       description: Return information of the database.
-      parameters:
-        - name: database_id
-          in: path
-          required: true
-          description: ''
-          schema:
-            type: string
       summary: Get database information
       responses:
         '200':
