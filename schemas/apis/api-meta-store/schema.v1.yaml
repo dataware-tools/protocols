@@ -42,9 +42,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RecordDetailModel'
+                $ref: '#/components/schemas/RecordModel'
               examples: {}
-      summary: Get detail information of the record
+      summary: Get record information
       tags:
         - record
     parameters:
@@ -53,6 +53,33 @@ paths:
         name: record_id
         in: path
         required: true
+    delete:
+      summary: Delete record information
+      operationId: deleterecord
+      responses:
+        '200':
+          description: OK
+      description: Delete a record
+      tags:
+        - record
+    patch:
+      summary: Update record information
+      operationId: updaterecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordModel'
+      description: Update a record
+      tags:
+        - record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRecordRequest'
   /records:
     get:
       operationId: listRecords
@@ -89,7 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RecordListModel'
+                $ref: '#/components/schemas/ListRecordResponse'
               examples: {}
           description: OK
       requestBody:
@@ -99,10 +126,28 @@ paths:
               type: object
               properties: {}
             examples: {}
-      summary: Get list of records
+      summary: List record information
       tags:
         - record
     parameters: []
+    post:
+      summary: Create record information
+      operationId: createrecord
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordModel'
+      description: Create a new record
+      tags:
+        - record
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecordRequest'
   '/databases/{database_id}':
     get:
       operationId: getDatabase
@@ -114,7 +159,7 @@ paths:
           description: ''
           schema:
             type: string
-      summary: Get detail information of the database
+      summary: Get database information
       responses:
         '200':
           description: OK
@@ -131,6 +176,33 @@ paths:
         name: database_id
         in: path
         required: true
+    delete:
+      summary: Delete database information
+      operationId: deletedatabase
+      responses:
+        '200':
+          description: OK
+      description: Delete a database
+      tags:
+        - database
+    patch:
+      summary: Update database information
+      operationId: updatedatabase
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseModel'
+      description: Update a database
+      tags:
+        - database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatabaseRequest'
   /databases:
     get:
       operationId: listDatabases
@@ -156,17 +228,158 @@ paths:
           in: query
           schema:
             type: string
-      summary: Get list of database
+      summary: List databases
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DatabaseListModel'
+                $ref: '#/components/schemas/ListDatabaseResponse'
       tags:
         - database
     parameters: []
+    post:
+      summary: Create database information
+      operationId: createdatabase
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseModel'
+      description: Create a new database
+      tags:
+        - database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatabaseRequest'
+  /files:
+    get:
+      summary: List files
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFileReponse'
+      operationId: listfiles
+      description: List files
+      parameters:
+        - name: per_page
+          description: Number of items to return per page
+          in: query
+          schema:
+            type: integer
+        - name: page
+          description: Page number
+          in: query
+          schema:
+            type: integer
+        - name: sort_key
+          description: Key to sort
+          in: query
+          schema:
+            type: string
+        - name: search
+          description: Search keyword for name of records
+          in: query
+          schema:
+            type: string
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          description: Record ID
+          required: true
+      tags:
+        - file
+    post:
+      summary: Create file information
+      operationId: createfile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileModel'
+      description: Register new metadata of a file
+      tags:
+        - file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFileRequest'
+  '/files/{path}':
+    parameters:
+      - schema:
+          type: string
+        name: path
+        in: path
+        required: true
+    get:
+      summary: Get file information
+      tags:
+        - file
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileModel'
+      operationId: getfile
+      description: Get file information
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          required: true
+          description: Record ID
+    delete:
+      summary: Delete file information
+      operationId: deletefile
+      responses:
+        '200':
+          description: OK
+      description: Delete file information
+      tags:
+        - file
+    patch:
+      summary: Update file information
+      operationId: updatefile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileModel'
+      description: Update information of a file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFileRequest'
 components:
   schemas:
     RecordModel:
@@ -177,8 +390,6 @@ components:
           description: Driving Database
           database_id: Driving Behavior Database
           record_id: '016_00000000030000000240'
-          data_type: raw_data
-          path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
           start_timestamp: 1489728491
           end_timestamp: 1489728570.957
           content_type: text/csv
@@ -189,23 +400,14 @@ components:
                 - front
                 - center
                 - timestamps
-          _uuid: 604a772a56fff3c02c5dd159eb20c305
-          _creation_time: 1619716430.061631
-          _id: 43d6c986a90e11ebb2be0242ac110004
       properties:
         description:
-          type: string
-          minLength: 1
-        database_id:
           type: string
           minLength: 1
         record_id:
           type: string
           minLength: 1
         data_type:
-          type: string
-          minLength: 1
-        path:
           type: string
           minLength: 1
         start_timestamp:
@@ -225,21 +427,35 @@ components:
                   type: array
                   items:
                     type: object
-        _uuid:
-          type: string
-          minLength: 1
-        _creation_time:
-          type: number
-        _id:
-          type: string
-          minLength: 1
       required:
         - record_id
-        - path
-        - _uuid
-        - _creation_time
-        - _id
-    RecordListModel:
+    CreateRecordRequest:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          description: Driving Database
+          record_id: '016_00000000030000000240'
+      title: CreateRecordRequest
+      properties:
+        record_id:
+          type: string
+          minLength: 1
+        description:
+          type: string
+      required:
+        - record_id
+    UpdateRecordRequest:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          description: Driving Database
+      title: UpdateRecordRequest
+      properties:
+        description:
+          type: string
+    ListRecordResponse:
       title: RecordListModel
       type: object
       x-examples:
@@ -249,6 +465,7 @@ components:
           number_of_pages: 1
           page: 1
           sort_key: null
+          database_id: default
           data:
             - description: Driving Database
               database_id: Driving Behavior Database
@@ -270,11 +487,13 @@ components:
               _id: 43d6c986a90e11ebb2be0242ac110004
       properties:
         number_of_pages:
-          type: number
+          type: integer
         count:
           type: integer
         data:
-          $ref: '#/components/schemas/RecordModel'
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordModel'
         per_page:
           type: integer
         page:
@@ -282,6 +501,8 @@ components:
         sort_key:
           type: string
           nullable: true
+        database_id:
+          type: string
       required:
         - number_of_pages
         - count
@@ -289,102 +510,58 @@ components:
         - per_page
         - page
         - sort_key
-    RecordDetailModel:
-      title: RecordDetailModel
-      type: object
-      properties:
-        database_id:
-          type: string
-          minLength: 1
-        record_id:
-          type: string
-          minLength: 1
-        record_info:
-          type: object
-          required:
-            - record_id
-            - start_timestamp
-            - end_timestamp
-            - tags
-            - duration
-          properties:
-            record_id:
-              type: string
-              minLength: 1
-            start_timestamp:
-              type: number
-            end_timestamp:
-              type: number
-            tags:
-              type: array
-              items:
-                type: string
-            duration:
-              type: number
-        contents:
-          type: array
-          items:
-            type: string
-        files:
-          type: array
-          uniqueItems: true
-          minItems: 1
-          items:
-            type: object
-            properties:
-              path:
-                type: string
-                minLength: 1
-              record_id:
-                type: string
-                minLength: 1
-              type:
-                type: string
-                minLength: 1
-              content-type:
-                type: string
-                minLength: 1
-              start_timestamp:
-                type: number
-              end_timestamp:
-                type: number
-            required:
-              - path
-              - record_id
-              - type
-              - content-type
-              - start_timestamp
-              - end_timestamp
-      required:
         - database_id
-        - record_id
-        - record_info
-        - contents
-        - files
+    ListFileReponse:
+      title: FileListModel
+      type: object
       x-examples:
         example-1:
           database_id: default
           record_id: '016_00000000030000000240'
-          record_info:
-            record_id: '016_00000000030000000240'
-            start_timestamp: 1489728491
-            end_timestamp: 1489728570.957
-            tags:
-              - timestamps
-              - camera
-              - center
-              - front
-            duration: 79.95700001716614
-          contents:
-            - camera/front-center
           files:
             - path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
-              record_id: '016_00000000030000000240'
               type: raw_data
               content-type: text/csv
               start_timestamp: 1489728491
               end_timestamp: 1489728570.957
-    DatabaseListModel:
+              contents:
+                camera/front-center:
+                  tags:
+                    - camera
+                    - front
+                    - center
+                    - timestamps
+      properties:
+        number_of_pages:
+          type: integer
+        count:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        sort_key:
+          type: string
+          nullable: true
+        database_id:
+          type: string
+        record_id:
+          type: string
+        files:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/FileModel'
+      required:
+        - number_of_pages
+        - count
+        - per_page
+        - page
+        - sort_key
+        - database_id
+        - record_id
+        - files
+    ListDatabaseResponse:
       type: object
       title: DatabaseListModel
       x-examples:
@@ -444,6 +621,124 @@ components:
           type: string
       required:
         - database_id
+    CreateDatabaseRequest:
+      title: CreateDatabaseRequest
+      type: object
+      x-examples:
+        example-1:
+          database_id: default
+          name: default database
+          description: The default database
+      properties:
+        database_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - database_id
+    UpdateDatabaseRequest:
+      title: UpdateDatabaseRequest
+      type: object
+      x-examples:
+        example-1:
+          name: default database
+          description: The default database
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    FileModel:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          type: raw_data
+          content-type: text/csv
+          start_timestamp: 1489728491
+          end_timestamp: 1489728570.957
+          contents:
+            camera/front-center:
+              tags:
+                - camera
+                - front
+                - center
+                - timestamps
+      title: FileModel
+      properties:
+        type:
+          type: string
+        content-type:
+          type: string
+        start_timestamp:
+          type: number
+        end_timestamp:
+          type: number
+        contents:
+          type: object
+    UpdateFileRequest:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
+          type: raw_data
+          content-type: text/csv
+          start_timestamp: 1489728491
+          end_timestamp: 1489728570.957
+          contents:
+            camera/front-center:
+              tags:
+                - camera
+                - front
+                - center
+                - timestamps
+      properties:
+        path:
+          type: string
+          minLength: 1
+        type:
+          type: string
+        content-type:
+          type: string
+        start_timestamp:
+          type: number
+        end_timestamp:
+          type: number
+        contents:
+          type: object
+      required:
+        - path
+      title: FileModel
+    CreateFileRequest:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
+          type: raw_data
+          content-type: text/csv
+          start_timestamp: 1489728491
+          end_timestamp: 1489728570.957
+          contents:
+            camera/front-center:
+              tags:
+                - camera
+                - front
+                - center
+                - timestamps
+      title: CreateFileRequest
+      properties:
+        path:
+          type: string
+          minLength: 1
+        contents:
+          type: object
+      required:
+        - path
 tags:
   - name: database
+  - name: file
   - name: record
