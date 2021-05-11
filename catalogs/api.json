@@ -60,5 +60,13 @@
     "endpoint": "/permission_manager",
     "service": "api-permission-manager:8080",
     "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-permission-manager/schema.v1.yaml"
+  },
+  "metaStore": {
+    "id": "meta_store",
+    "name": "Meta store",
+    "description": "An API for managing metadata",
+    "endpoint": "/meta_store",
+    "service": "api-meta-store:8080",
+    "schema": "git@github.com:dataware-tools/protocols.git/schemas/apis/api-meta-store/schema.v1.yaml"
   }
 }

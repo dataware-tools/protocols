@@ -9,6 +9,7 @@ services:
     depends_on:
       - api-database-store
       - api-record-store
+      - api-meta-store
   api-database-store:
     image: stoplight/prism:4
     volumes:
@@ -21,3 +22,9 @@ services:
       - ../apis:/apis:ro
     command: >
       mock -p 4010 --host 0.0.0.0 /apis/api-record-store/schema.v1.yaml
+  api-meta-store:
+    image: stoplight/prism:4
+    volumes:
+      - ../apis:/apis:ro
+    command: >
+      mock -p 4010 --host 0.0.0.0 /apis/api-meta-store/schema.v1.yaml
