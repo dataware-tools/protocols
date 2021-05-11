@@ -62,12 +62,6 @@ paths:
       summary: Get record information
       tags:
         - record
-    parameters:
-      - schema:
-          type: string
-        name: record_id
-        in: path
-        required: true
     delete:
       summary: Delete record information
       operationId: deleterecord
@@ -279,12 +273,6 @@ paths:
                     _id: 440f8ceea90e11ebb2be0242ac110004
       tags:
         - database
-    parameters:
-      - schema:
-          type: string
-        name: database_id
-        in: path
-        required: true
     delete:
       summary: Delete database information
       operationId: deletedatabase
