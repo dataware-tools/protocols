@@ -1,0 +1,449 @@
+openapi: 3.0.2
+info:
+  title: meta store
+  version: '1.0'
+  description: APIs to manage metadata of data
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  '/records/{record_id}':
+    get:
+      operationId: getRecord
+      description: Return the detail of the record.
+      parameters:
+        - name: record_id
+          in: path
+          required: true
+          description: record_id
+          schema:
+            type: string
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordDetailModel'
+              examples: {}
+      summary: Get detail information of the record
+      tags:
+        - record
+    parameters:
+      - schema:
+          type: string
+        name: record_id
+        in: path
+        required: true
+  /records:
+    get:
+      operationId: listRecords
+      description: Return the list of records.
+      parameters:
+        - name: per_page
+          description: Number of items to return per page
+          in: query
+          schema:
+            type: integer
+        - name: page
+          description: Page number
+          in: query
+          schema:
+            type: integer
+        - name: sort_key
+          description: Key to sort
+          in: query
+          schema:
+            type: string
+        - name: search
+          description: Search keyword for name of records
+          in: query
+          schema:
+            type: string
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordListModel'
+              examples: {}
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples: {}
+      summary: Get list of records
+      tags:
+        - record
+    parameters: []
+  '/databases/{database_id}':
+    get:
+      operationId: getDatabase
+      description: Return information of the database.
+      parameters:
+        - name: database_id
+          in: path
+          required: true
+          description: ''
+          schema:
+            type: string
+      summary: Get detail information of the database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseModel'
+              examples: {}
+      tags:
+        - database
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+  /databases:
+    get:
+      operationId: listDatabases
+      description: Return the list of databases.
+      parameters:
+        - name: per_page
+          description: Number of items to return per page
+          in: query
+          schema:
+            type: integer
+        - name: page
+          description: Page number
+          in: query
+          schema:
+            type: integer
+        - name: sort_key
+          description: Key to sort
+          in: query
+          schema:
+            type: string
+        - name: search
+          description: Search keyword for name of databases
+          in: query
+          schema:
+            type: string
+      summary: Get list of database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseListModel'
+      tags:
+        - database
+    parameters: []
+components:
+  schemas:
+    RecordModel:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          description: Driving Database
+          database_id: Driving Behavior Database
+          record_id: '016_00000000030000000240'
+          data_type: raw_data
+          path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
+          start_timestamp: 1489728491
+          end_timestamp: 1489728570.957
+          content_type: text/csv
+          contents:
+            camera/front-center:
+              tags:
+                - camera
+                - front
+                - center
+                - timestamps
+          _uuid: 604a772a56fff3c02c5dd159eb20c305
+          _creation_time: 1619716430.061631
+          _id: 43d6c986a90e11ebb2be0242ac110004
+      properties:
+        description:
+          type: string
+          minLength: 1
+        database_id:
+          type: string
+          minLength: 1
+        record_id:
+          type: string
+          minLength: 1
+        data_type:
+          type: string
+          minLength: 1
+        path:
+          type: string
+          minLength: 1
+        start_timestamp:
+          type: number
+        end_timestamp:
+          type: number
+        content_type:
+          type: string
+          minLength: 1
+        contents:
+          type: object
+          properties:
+            camera/front-center:
+              type: object
+              properties:
+                tags:
+                  type: array
+                  items:
+                    type: object
+        _uuid:
+          type: string
+          minLength: 1
+        _creation_time:
+          type: number
+        _id:
+          type: string
+          minLength: 1
+      required:
+        - record_id
+        - path
+        - _uuid
+        - _creation_time
+        - _id
+    RecordListModel:
+      title: RecordListModel
+      type: object
+      x-examples:
+        example-1:
+          count: 1
+          per_page: 50
+          number_of_pages: 1
+          page: 1
+          sort_key: null
+          data:
+            - description: Driving Database
+              database_id: Driving Behavior Database
+              record_id: '016_00000000030000000240'
+              data_type: raw_data
+              path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
+              start_timestamp: 1489728491
+              end_timestamp: 1489728570.957
+              content_type: text/csv
+              contents:
+                camera/front-center:
+                  tags:
+                    - camera
+                    - front
+                    - center
+                    - timestamps
+              _uuid: 604a772a56fff3c02c5dd159eb20c305
+              _creation_time: 1619716430.061631
+              _id: 43d6c986a90e11ebb2be0242ac110004
+      properties:
+        number_of_pages:
+          type: number
+        count:
+          type: integer
+        data:
+          $ref: '#/components/schemas/RecordModel'
+        per_page:
+          type: integer
+        page:
+          type: integer
+        sort_key:
+          type: string
+          nullable: true
+      required:
+        - number_of_pages
+        - count
+        - data
+        - per_page
+        - page
+        - sort_key
+    RecordDetailModel:
+      title: RecordDetailModel
+      type: object
+      properties:
+        database_id:
+          type: string
+          minLength: 1
+        record_id:
+          type: string
+          minLength: 1
+        record_info:
+          type: object
+          required:
+            - record_id
+            - start_timestamp
+            - end_timestamp
+            - tags
+            - duration
+          properties:
+            record_id:
+              type: string
+              minLength: 1
+            start_timestamp:
+              type: number
+            end_timestamp:
+              type: number
+            tags:
+              type: array
+              items:
+                type: string
+            duration:
+              type: number
+        contents:
+          type: array
+          items:
+            type: string
+        files:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                minLength: 1
+              record_id:
+                type: string
+                minLength: 1
+              type:
+                type: string
+                minLength: 1
+              content-type:
+                type: string
+                minLength: 1
+              start_timestamp:
+                type: number
+              end_timestamp:
+                type: number
+            required:
+              - path
+              - record_id
+              - type
+              - content-type
+              - start_timestamp
+              - end_timestamp
+      required:
+        - database_id
+        - record_id
+        - record_info
+        - contents
+        - files
+      x-examples:
+        example-1:
+          database_id: default
+          record_id: '016_00000000030000000240'
+          record_info:
+            record_id: '016_00000000030000000240'
+            start_timestamp: 1489728491
+            end_timestamp: 1489728570.957
+            tags:
+              - timestamps
+              - camera
+              - center
+              - front
+            duration: 79.95700001716614
+          contents:
+            - camera/front-center
+          files:
+            - path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
+              record_id: '016_00000000030000000240'
+              type: raw_data
+              content-type: text/csv
+              start_timestamp: 1489728491
+              end_timestamp: 1489728570.957
+    DatabaseListModel:
+      type: object
+      title: DatabaseListModel
+      x-examples:
+        example-1:
+          count: 1
+          per_page: 50
+          page: 1
+          sort_key: null
+          data:
+            - database_id: default
+              df_name: db_0ffc6dbe_meta
+              _uuid: c21f969b5f03d33d43e04f8f136e7682
+              _creation_time: 1619716430.642142
+              _id: 440f8ceea90e11ebb2be0242ac110004
+          number_of_pages: 1
+      properties:
+        count:
+          type: integer
+        number_of_pages:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseModel'
+        page:
+          type: integer
+        per_page:
+          type: integer
+        sort_key:
+          type: string
+          nullable: true
+      required:
+        - count
+        - number_of_pages
+        - data
+        - page
+        - per_page
+        - sort_key
+    DatabaseModel:
+      title: DatabaseModel
+      type: object
+      x-examples:
+        example-1:
+          database_id: default
+          name: default database
+          description: The default database
+          df_name: db_0ffc6dbe_meta
+          _uuid: c21f969b5f03d33d43e04f8f136e7682
+          _creation_time: 1619716430.642142
+          _id: 440f8ceea90e11ebb2be0242ac110004
+      properties:
+        database_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - database_id
+tags:
+  - name: database
+  - name: record
