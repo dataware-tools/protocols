@@ -19,10 +19,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: install openapi-typescript-codegen
+      - name: Iinstall openapi-typescript-codegen
         run: npm install -g openapi-typescript-codegen
 
-      - shell: bash
+      - name: Generate OpenAPI clients
+        shell: bash
         run: |
           export PATH=${PATH}:$(npm config get prefix)/bin
           for schema in $(find ./schemas/apis -name *.yaml)
