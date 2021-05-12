@@ -1,0 +1,32 @@
+name: Test for generating OpenAPI client
+
+on: [push]
+
+jobs:
+  generate-openapi-client:
+    runs-on: self-hosted
+    timeout-minutes: 300
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: install openapi-typescript-codegen
+        run: npm install -g openapi-typescript-codegen
+
+      - shell: bash
+        run: |
+          export PATH=${PATH}:$(npm config get prefix)/bin
+          for schema in $(find ./schemas/apis -name *.yaml)
+          do
+            echo "Generating ${schema}..."
+            openapi --input ${schema} --output /tmp/client || exit 1
+          done
