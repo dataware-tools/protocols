@@ -71,6 +71,13 @@ paths:
       description: Delete a record
       tags:
         - record
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
     patch:
       summary: Update record information
       operationId: updaterecord
@@ -120,6 +127,13 @@ paths:
                         - front
                         - center
                         - timestamps
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
   /records:
     get:
       operationId: listRecords
@@ -242,6 +256,13 @@ paths:
                         - front
                         - center
                         - timestamps
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
   '/databases/{database_id}':
     parameters:
       - schema:
@@ -512,6 +533,19 @@ paths:
                         - front
                         - center
                         - timestamps
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          description: Record ID
+          required: true
   '/files/{path}':
     parameters:
       - schema:
@@ -569,6 +603,19 @@ paths:
       description: Delete file information
       tags:
         - file
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          description: Record ID
+          required: true
     patch:
       summary: Update file information
       operationId: updatefile
@@ -616,6 +663,19 @@ paths:
                         - timestamps
       tags:
         - file
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          description: Record ID
+          required: true
 components:
   schemas:
     RecordModel:
