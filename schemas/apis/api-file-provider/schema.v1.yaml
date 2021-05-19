@@ -116,6 +116,13 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  save_file_path:
+                    type: string
       description: Upload a file
       parameters:
         - schema:
