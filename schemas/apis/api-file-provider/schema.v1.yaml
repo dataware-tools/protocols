@@ -139,6 +139,23 @@ paths:
           description: Record ID
       tags:
         - upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              format: binary
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: File to upload as binary data.
+                contents:
+                  type: string
+                  description: Metadata contents as JSON string.
+              required:
+                - file
+                - contents
 components:
   schemas:
     DownloadsPostModel:
