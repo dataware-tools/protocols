@@ -121,8 +121,15 @@ paths:
         - schema:
             type: string
           in: query
-          name: dir_name
+          name: database_id
           required: true
+          description: Database ID
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          required: true
+          description: Record ID
       tags:
         - upload
 components:
