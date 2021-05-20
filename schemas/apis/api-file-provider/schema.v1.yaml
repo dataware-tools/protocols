@@ -153,9 +153,10 @@ paths:
                 contents:
                   type: string
                   description: Metadata contents as JSON string.
+                  format: binary
+                  default: '{}'
               required:
                 - file
-                - contents
 components:
   schemas:
     DownloadsPostModel:
