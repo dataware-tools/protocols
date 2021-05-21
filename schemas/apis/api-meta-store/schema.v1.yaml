@@ -63,13 +63,7 @@ paths:
       description: Delete a record
       tags:
         - record
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
+      parameters: []
     patch:
       summary: Update record information
       operationId: updateRecord
@@ -235,13 +229,7 @@ paths:
                         - front
                         - center
                         - timestamps
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
+      parameters: []
   '/databases/{database_id}':
     parameters:
       - schema:
@@ -507,12 +495,7 @@ paths:
                         - front
                         - center
                         - timestamps
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: record_id
-          description: Record ID
+      parameters: []
     parameters:
       - schema:
           type: string
@@ -617,19 +600,7 @@ paths:
                         - timestamps
       tags:
         - file
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: record_id
-          description: Record ID
-          required: true
+      parameters: []
 components:
   schemas:
     RecordModel:
