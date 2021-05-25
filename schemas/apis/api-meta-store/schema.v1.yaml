@@ -60,6 +60,15 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  database_id:
+                    type: string
+                  record_id:
+                    type: string
       description: Delete a record
       tags:
         - record
@@ -266,6 +275,13 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  database_id:
+                    type: string
       description: Delete a database
       tags:
         - database
@@ -549,6 +565,15 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  database_id:
+                    type: string
+                  file_id:
+                    type: string
       description: Delete file information
       tags:
         - file
