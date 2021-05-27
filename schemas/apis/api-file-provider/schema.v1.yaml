@@ -123,6 +123,15 @@ paths:
                 properties:
                   save_file_path:
                     type: string
+        '409':
+          description: A file with the same path already exists.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
       description: Upload a file
       parameters:
         - schema:
