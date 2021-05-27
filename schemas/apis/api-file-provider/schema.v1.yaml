@@ -116,15 +116,47 @@ paths:
       responses:
         '201':
           description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  save_file_path:
+                    type: string
       description: Upload a file
       parameters:
         - schema:
             type: string
           in: query
-          name: dir_name
+          name: database_id
           required: true
+          description: Database ID
+        - schema:
+            type: string
+          in: query
+          name: record_id
+          required: true
+          description: Record ID
       tags:
         - upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              format: binary
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: File to upload as binary data.
+                contents:
+                  type: string
+                  description: Metadata contents as JSON string.
+                  format: binary
+                  default: '{}'
+              required:
+                - file
 components:
   schemas:
     DownloadsPostModel:
