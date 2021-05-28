@@ -166,6 +166,40 @@ paths:
                   default: '{}'
               required:
                 - file
+  /delete:
+    delete:
+      summary: Delete file
+      tags: []
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reason:
+                    type: string
+      operationId: delete-delete
+      description: Delete actual file.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: path
+          description: File path
+          required: true
 components:
   schemas:
     DownloadsPostModel:
