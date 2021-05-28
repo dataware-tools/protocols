@@ -252,3 +252,4 @@ components:
 tags:
   - name: download
   - name: upload
+  - name: delete
