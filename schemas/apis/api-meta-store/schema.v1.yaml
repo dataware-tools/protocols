@@ -617,6 +617,149 @@ paths:
       tags:
         - file
       parameters: []
+  '/databases/{database_id}/config':
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - config
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigModel'
+              examples:
+                example-1:
+                  value:
+                    columns:
+                      - name: description
+                        dtype: string
+                        aggregation: first
+                        display_name: Description
+                      - name: record_id
+                        dtype: string
+                        aggregation: first
+                        display_name: Record ID
+                      - name: path
+                        dtype: string
+                        aggregation: push
+                        display_name: File path
+                      - name: contents
+                        dtype: string
+                        aggregation: mergeObjects
+                        display_name: Contents
+                      - name: tags
+                        dtype: 'string[]'
+                        aggregation: addToSet
+                        display_name: Tags
+                      - name: name
+                        dtype: str
+                        aggregation: first
+                        display_name: name
+                      - name: list
+                        dtype: list
+                        aggregation: first
+                        display_name: list
+                    index_columns:
+                      - record_id
+                      - path
+      operationId: getConfig
+      description: Get config for the database
+    patch:
+      summary: ''
+      operationId: updateConfig
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigModel'
+              examples:
+                example-1:
+                  value:
+                    columns:
+                      - name: description
+                        dtype: string
+                        aggregation: first
+                        display_name: Description
+                      - name: record_id
+                        dtype: string
+                        aggregation: first
+                        display_name: Record ID
+                      - name: path
+                        dtype: string
+                        aggregation: push
+                        display_name: File path
+                      - name: contents
+                        dtype: string
+                        aggregation: mergeObjects
+                        display_name: Contents
+                      - name: tags
+                        dtype: 'string[]'
+                        aggregation: addToSet
+                        display_name: Tags
+                      - name: name
+                        dtype: str
+                        aggregation: first
+                        display_name: name
+                      - name: list
+                        dtype: list
+                        aggregation: first
+                        display_name: list
+                    index_columns:
+                      - record_id
+                      - path
+      description: Update config for the database
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfigRequest'
+            examples:
+              example-1:
+                value:
+                  columns:
+                    - name: description
+                      dtype: string
+                      aggregation: first
+                      display_name: Description
+                    - name: record_id
+                      dtype: string
+                      aggregation: first
+                      display_name: Record ID
+                    - name: path
+                      dtype: string
+                      aggregation: push
+                      display_name: File path
+                    - name: contents
+                      dtype: string
+                      aggregation: mergeObjects
+                      display_name: Contents
+                    - name: tags
+                      dtype: 'string[]'
+                      aggregation: addToSet
+                      display_name: Tags
+                    - name: name
+                      dtype: str
+                      aggregation: first
+                      display_name: name
+                    - name: list
+                      dtype: list
+                      aggregation: first
+                      display_name: list
+                  index_columns:
+                    - record_id
+                    - path
+      tags:
+        - config
 components:
   schemas:
     RecordModel:
@@ -997,7 +1140,210 @@ components:
       required:
         - database_id
         - uuid
+    ConfigModel:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          columns:
+            - name: description
+              dtype: string
+              aggregation: first
+              display_name: Description
+            - name: record_id
+              dtype: string
+              aggregation: first
+              display_name: Record ID
+            - name: path
+              dtype: string
+              aggregation: push
+              display_name: File path
+            - name: contents
+              dtype: string
+              aggregation: mergeObjects
+              display_name: Contents
+            - name: tags
+              dtype: 'string[]'
+              aggregation: addToSet
+              display_name: Tags
+            - name: name
+              dtype: str
+              aggregation: first
+              display_name: name
+            - name: list
+              dtype: list
+              aggregation: first
+              display_name: list
+          index_columns:
+            - record_id
+            - path
+          value:
+            columns:
+              - name: description
+                dtype: string
+                aggregation: first
+                display_name: Description
+              - name: record_id
+                dtype: string
+                aggregation: first
+                display_name: Record ID
+              - name: path
+                dtype: string
+                aggregation: push
+                display_name: File path
+              - name: contents
+                dtype: string
+                aggregation: mergeObjects
+                display_name: Contents
+              - name: tags
+                dtype: 'string[]'
+                aggregation: addToSet
+                display_name: Tags
+              - name: name
+                dtype: str
+                aggregation: first
+                display_name: name
+              - name: list
+                dtype: list
+                aggregation: first
+                display_name: list
+            index_columns:
+              - record_id
+              - path
+      properties:
+        columns:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+              dtype:
+                type: string
+                minLength: 1
+              aggregation:
+                type: string
+                minLength: 1
+              display_name:
+                type: string
+                minLength: 1
+            required:
+              - name
+              - dtype
+              - aggregation
+        index_columns:
+          type: array
+          items:
+            type: string
+      required:
+        - columns
+        - index_columns
+    UpdateConfigRequest:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          columns:
+            - name: description
+              dtype: string
+              aggregation: first
+              display_name: Description
+            - name: record_id
+              dtype: string
+              aggregation: first
+              display_name: Record ID
+            - name: path
+              dtype: string
+              aggregation: push
+              display_name: File path
+            - name: contents
+              dtype: string
+              aggregation: mergeObjects
+              display_name: Contents
+            - name: tags
+              dtype: 'string[]'
+              aggregation: addToSet
+              display_name: Tags
+            - name: name
+              dtype: str
+              aggregation: first
+              display_name: name
+            - name: list
+              dtype: list
+              aggregation: first
+              display_name: list
+          index_columns:
+            - record_id
+            - path
+          value:
+            columns:
+              - name: description
+                dtype: string
+                aggregation: first
+                display_name: Description
+              - name: record_id
+                dtype: string
+                aggregation: first
+                display_name: Record ID
+              - name: path
+                dtype: string
+                aggregation: push
+                display_name: File path
+              - name: contents
+                dtype: string
+                aggregation: mergeObjects
+                display_name: Contents
+              - name: tags
+                dtype: 'string[]'
+                aggregation: addToSet
+                display_name: Tags
+              - name: name
+                dtype: str
+                aggregation: first
+                display_name: name
+              - name: list
+                dtype: list
+                aggregation: first
+                display_name: list
+            index_columns:
+              - record_id
+              - path
+      properties:
+        columns:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+              dtype:
+                type: string
+                minLength: 1
+              aggregation:
+                type: string
+                minLength: 1
+              display_name:
+                type: string
+                minLength: 1
+            required:
+              - name
+              - dtype
+              - aggregation
+        index_columns:
+          type: array
+          items:
+            type: string
+      required:
+        - columns
+        - index_columns
 tags:
+  - name: config
   - name: database
   - name: file
   - name: record
