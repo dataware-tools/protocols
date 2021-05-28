@@ -12,30 +12,22 @@ info:
 servers:
   - url: 'http://localhost:8080'
 paths:
-  '/records/{record_id}':
+  '/databases/{database_id}/records/{record_id}':
     parameters:
       - schema:
           type: string
         name: record_id
         in: path
         required: true
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
     get:
       operationId: getRecord
       description: Return the detail of the record.
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
-            examples: {}
+      parameters: []
       responses:
         '200':
           description: OK
@@ -68,16 +60,14 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteRecordResponse'
       description: Delete a record
       tags:
         - record
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
+      parameters: []
     patch:
       summary: Update record information
       operationId: updateRecord
@@ -127,14 +117,8 @@ paths:
                         - front
                         - center
                         - timestamps
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
-  /records:
+      parameters: []
+  '/databases/{database_id}/records':
     get:
       operationId: listRecords
       description: Return the list of records.
@@ -159,12 +143,6 @@ paths:
           in: query
           schema:
             type: string
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
       responses:
         '200':
           content:
@@ -175,7 +153,6 @@ paths:
                 example-1:
                   value:
                     number_of_pages: 1
-                    count: 1
                     data:
                       - description: Driving Database
                         database_id: Driving Behavior Database
@@ -194,18 +171,18 @@ paths:
                     page: 1
                     sort_key: string
                     database_id: string
+                    length: 1
+                    total: 1
           description: OK
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
-            examples: {}
       summary: List record information
       tags:
         - record
-    parameters: []
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
     post:
       summary: Create record information
       operationId: createRecord
@@ -256,13 +233,7 @@ paths:
                         - front
                         - center
                         - timestamps
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
+      parameters: []
   '/databases/{database_id}':
     parameters:
       - schema:
@@ -299,6 +270,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDatabaseResponse'
       description: Delete a database
       tags:
         - database
@@ -369,7 +344,6 @@ paths:
               examples:
                 example-1:
                   value:
-                    count: 1
                     per_page: 50
                     page: 1
                     sort_key: null
@@ -380,6 +354,8 @@ paths:
                         _creation_time: 1619716430.642142
                         _id: 440f8ceea90e11ebb2be0242ac110004
                     number_of_pages: 1
+                    length: 1
+                    total: 1
       tags:
         - database
     parameters: []
@@ -415,7 +391,7 @@ paths:
                   name: default database
                   description: The default database
                   df_name: db_0ffc6dbe_meta
-  /files:
+  '/databases/{database_id}/files':
     get:
       summary: List files
       responses:
@@ -429,7 +405,6 @@ paths:
                 example-1:
                   value:
                     number_of_pages: 0
-                    count: 0
                     per_page: 0
                     page: 0
                     sort_key: string
@@ -441,6 +416,7 @@ paths:
                         content-type: text/csv
                         start_timestamp: 1489728491
                         end_timestamp: 1489728570.957
+                        uuid: 298joidfjp9ifasdifaj3ap9asdfao
                         contents:
                           camera/front-center:
                             tags:
@@ -448,6 +424,8 @@ paths:
                               - front
                               - center
                               - timestamps
+                    length: 1
+                    total: 1
       operationId: listFiles
       description: List files
       parameters:
@@ -474,15 +452,8 @@ paths:
         - schema:
             type: string
           in: query
-          name: database_id
-          description: Database ID
-          required: true
-        - schema:
-            type: string
-          in: query
           name: record_id
-          description: Record ID
-          required: true
+          description: Record id
       tags:
         - file
     post:
@@ -503,6 +474,7 @@ paths:
                     content-type: text/csv
                     start_timestamp: 1489728491
                     end_timestamp: 1489728570.957
+                    uuid: fq9ewudiajfliuaepwoifajkldsfieoa
                     contents:
                       camera/front-center:
                         tags:
@@ -533,24 +505,23 @@ paths:
                         - front
                         - center
                         - timestamps
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: record_id
-          description: Record ID
-          required: true
-  '/files/{path}':
+      parameters: []
     parameters:
       - schema:
           type: string
-        name: path
+        name: database_id
+        in: path
+        required: true
+  '/databases/{database_id}/files/{uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: uuid
         in: path
         required: true
     get:
@@ -572,6 +543,7 @@ paths:
                     content-type: text/csv
                     start_timestamp: 1489728491
                     end_timestamp: 1489728570.957
+                    uuid: a9w8ruohaiwfhaoiu3haldisufa3
                     contents:
                       camera/front-center:
                         tags:
@@ -581,41 +553,21 @@ paths:
                           - timestamps
       operationId: getFile
       description: Get file information
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: record_id
-          required: true
-          description: Record ID
+      parameters: []
     delete:
       summary: Delete file information
       operationId: deleteFile
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteFileResponse'
       description: Delete file information
       tags:
         - file
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: record_id
-          description: Record ID
-          required: true
+      parameters: []
     patch:
       summary: Update file information
       operationId: updateFile
@@ -634,6 +586,7 @@ paths:
                     content-type: text/csv
                     start_timestamp: 1489728491
                     end_timestamp: 1489728570.957
+                    uuid: qfp928ejasdifjapoiefjaldkfa3
                     contents:
                       camera/front-center:
                         tags:
@@ -663,19 +616,7 @@ paths:
                         - timestamps
       tags:
         - file
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: database_id
-          description: Database ID
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: record_id
-          description: Record ID
-          required: true
+      parameters: []
 components:
   schemas:
     RecordModel:
@@ -728,11 +669,8 @@ components:
       properties:
         record_id:
           type: string
-          minLength: 1
         description:
           type: string
-      required:
-        - record_id
     UpdateRecordRequest:
       description: ''
       type: object
@@ -774,10 +712,6 @@ components:
               _creation_time: 1619716430.061631
               _id: 43d6c986a90e11ebb2be0242ac110004
       properties:
-        number_of_pages:
-          type: integer
-        count:
-          type: integer
         data:
           type: array
           items:
@@ -791,14 +725,17 @@ components:
           nullable: true
         database_id:
           type: string
+        length:
+          type: integer
+        total:
+          type: integer
       required:
-        - number_of_pages
-        - count
         - data
         - per_page
         - page
         - sort_key
         - database_id
+        - length
     ListFileReponse:
       title: FileListModel
       type: object
@@ -820,10 +757,6 @@ components:
                     - center
                     - timestamps
       properties:
-        number_of_pages:
-          type: integer
-        count:
-          type: integer
         per_page:
           type: integer
         page:
@@ -840,34 +773,37 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/FileModel'
+        length:
+          type: integer
+        total:
+          type: integer
       required:
-        - number_of_pages
-        - count
         - per_page
         - page
         - sort_key
         - database_id
         - record_id
         - files
+        - length
+        - total
     ListDatabaseResponse:
       type: object
       title: DatabaseListModel
       x-examples:
         example-1:
-          count: 1
-          per_page: 50
-          page: 1
-          sort_key: null
-          data:
-            - database_id: default
-              df_name: db_0ffc6dbe_meta
-              _uuid: c21f969b5f03d33d43e04f8f136e7682
-              _creation_time: 1619716430.642142
-              _id: 440f8ceea90e11ebb2be0242ac110004
-          number_of_pages: 1
+          value:
+            count: 0
+            number_of_pages: 0
+            data:
+              - database_id: string
+                name: string
+                description: string
+            page: 0
+            per_page: 0
+            sort_key: string
+            length: 0
+            total: 0
       properties:
-        count:
-          type: integer
         number_of_pages:
           type: integer
         data:
@@ -881,13 +817,17 @@ components:
         sort_key:
           type: string
           nullable: true
+        length:
+          type: integer
+        total:
+          type: integer
       required:
-        - count
         - number_of_pages
         - data
         - page
         - per_page
         - sort_key
+        - length
     DatabaseModel:
       title: DatabaseModel
       type: object
@@ -924,8 +864,6 @@ components:
           type: string
         description:
           type: string
-      required:
-        - database_id
     UpdateDatabaseRequest:
       title: UpdateDatabaseRequest
       type: object
@@ -969,8 +907,11 @@ components:
           type: object
         path:
           type: string
+        uuid:
+          type: string
       required:
         - path
+        - uuid
     UpdateFileRequest:
       description: ''
       type: object
@@ -1026,6 +967,36 @@ components:
           type: object
       required:
         - path
+    DeleteDatabaseResponse:
+      title: DeleteDatabaseResponse
+      type: object
+      properties:
+        database_id:
+          type: string
+      required:
+        - database_id
+    DeleteRecordResponse:
+      title: DeleteRecordResponse
+      type: object
+      properties:
+        database_id:
+          type: string
+        record_id:
+          type: string
+      required:
+        - database_id
+        - record_id
+    DeleteFileResponse:
+      title: DeleteFileResponse
+      type: object
+      properties:
+        database_id:
+          type: string
+        uuid:
+          type: string
+      required:
+        - database_id
+        - uuid
 tags:
   - name: database
   - name: file
