@@ -169,7 +169,8 @@ paths:
   /delete:
     delete:
       summary: Delete file
-      tags: []
+      tags:
+        - delete
       responses:
         '200':
           description: OK
