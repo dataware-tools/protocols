@@ -63,12 +63,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  database_id:
-                    type: string
-                  record_id:
-                    type: string
+                $ref: '#/components/schemas/DeleteRecordResponse'
       description: Delete a record
       tags:
         - record
@@ -278,10 +273,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  database_id:
-                    type: string
+                $ref: '#/components/schemas/DeleteDatabaseResponse'
       description: Delete a database
       tags:
         - database
@@ -424,6 +416,7 @@ paths:
                         content-type: text/csv
                         start_timestamp: 1489728491
                         end_timestamp: 1489728570.957
+                        uuid: 298joidfjp9ifasdifaj3ap9asdfao
                         contents:
                           camera/front-center:
                             tags:
@@ -481,6 +474,7 @@ paths:
                     content-type: text/csv
                     start_timestamp: 1489728491
                     end_timestamp: 1489728570.957
+                    uuid: fq9ewudiajfliuaepwoifajkldsfieoa
                     contents:
                       camera/front-center:
                         tags:
@@ -518,7 +512,7 @@ paths:
         name: database_id
         in: path
         required: true
-  '/databases/{database_id}/files/{file_id}':
+  '/databases/{database_id}/files/{uuid}':
     parameters:
       - schema:
           type: string
@@ -527,7 +521,7 @@ paths:
         required: true
       - schema:
           type: string
-        name: file_id
+        name: uuid
         in: path
         required: true
     get:
@@ -549,6 +543,7 @@ paths:
                     content-type: text/csv
                     start_timestamp: 1489728491
                     end_timestamp: 1489728570.957
+                    uuid: a9w8ruohaiwfhaoiu3haldisufa3
                     contents:
                       camera/front-center:
                         tags:
@@ -568,12 +563,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  database_id:
-                    type: string
-                  file_id:
-                    type: string
+                $ref: '#/components/schemas/DeleteFileResponse'
       description: Delete file information
       tags:
         - file
@@ -596,6 +586,7 @@ paths:
                     content-type: text/csv
                     start_timestamp: 1489728491
                     end_timestamp: 1489728570.957
+                    uuid: qfp928ejasdifjapoiefjaldkfa3
                     contents:
                       camera/front-center:
                         tags:
@@ -916,8 +907,11 @@ components:
           type: object
         path:
           type: string
+        uuid:
+          type: string
       required:
         - path
+        - uuid
     UpdateFileRequest:
       description: ''
       type: object
@@ -973,6 +967,36 @@ components:
           type: object
       required:
         - path
+    DeleteDatabaseResponse:
+      title: DeleteDatabaseResponse
+      type: object
+      properties:
+        database_id:
+          type: string
+      required:
+        - database_id
+    DeleteRecordResponse:
+      title: DeleteRecordResponse
+      type: object
+      properties:
+        database_id:
+          type: string
+        record_id:
+          type: string
+      required:
+        - database_id
+        - record_id
+    DeleteFileResponse:
+      title: DeleteFileResponse
+      type: object
+      properties:
+        database_id:
+          type: string
+        uuid:
+          type: string
+      required:
+        - database_id
+        - uuid
 tags:
   - name: database
   - name: file
