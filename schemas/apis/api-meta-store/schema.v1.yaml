@@ -801,6 +801,7 @@ components:
           type: object
       required:
         - record_id
+      additionalProperties: true
     CreateRecordRequest:
       description: ''
       type: object
@@ -879,7 +880,7 @@ components:
         - sort_key
         - database_id
         - length
-    ListFileReponse:
+    ListFileResponse:
       title: FileListModel
       type: object
       x-examples:
