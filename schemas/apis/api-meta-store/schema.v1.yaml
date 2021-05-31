@@ -400,7 +400,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListFileReponse'
+                $ref: '#/components/schemas/ListFileResponse'
               examples:
                 example-1:
                   value:
@@ -801,7 +801,6 @@ components:
           type: object
       required:
         - record_id
-      additionalProperties: true
     CreateRecordRequest:
       description: ''
       type: object
