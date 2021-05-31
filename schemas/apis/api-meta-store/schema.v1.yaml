@@ -400,7 +400,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListFileReponse'
+                $ref: '#/components/schemas/ListFileResponse'
               examples:
                 example-1:
                   value:
@@ -879,7 +879,7 @@ components:
         - sort_key
         - database_id
         - length
-    ListFileReponse:
+    ListFileResponse:
       title: FileListModel
       type: object
       x-examples:
