@@ -16,14 +16,14 @@ paths:
     parameters:
       - schema:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name: record_id
         in: path
         required: true
       - schema:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name: database_id
         in: path
@@ -240,7 +240,7 @@ paths:
     parameters:
       - schema:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name: database_id
         in: path
@@ -314,7 +314,7 @@ paths:
     parameters:
       - schema:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name: database_id
         in: path
@@ -627,7 +627,7 @@ paths:
     parameters:
       - schema:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name: database_id
         in: path
@@ -636,7 +636,7 @@ paths:
     parameters:
       - schema:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name: database_id
         in: path
@@ -745,7 +745,7 @@ paths:
     parameters:
       - schema:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name: database_id
         in: path
@@ -940,7 +940,7 @@ components:
       properties:
         record_id:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         description:
           type: string
@@ -1138,7 +1138,7 @@ components:
       properties:
         database_id:
           type: string
-          pattern: '^[a-zA-Z0-9._-]+'
+          pattern: '^[a-zA-Z0-9_-]+'
           minLength: 1
         name:
           type: string
