@@ -356,6 +356,12 @@ paths:
                     number_of_pages: 1
                     length: 1
                     total: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       tags:
         - database
     parameters: []
@@ -376,6 +382,14 @@ paths:
                     name: default database
                     description: The default database
                     df_name: db_0ffc6dbe_meta
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
       description: Create a new database
       tags:
         - database
@@ -1352,6 +1366,14 @@ components:
       required:
         - columns
         - index_columns
+    ErrorModel:
+      title: ErrorModel
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+        - detail
 tags:
   - name: config
   - name: database
