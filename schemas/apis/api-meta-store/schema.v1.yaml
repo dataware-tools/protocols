@@ -820,8 +820,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-        '422':
-          description: Unprocessable Entity (WebDAV)
         '500':
           description: Internal Server Error
           content:
@@ -887,6 +885,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
         '500':
           description: Internal Server Error
           content:
