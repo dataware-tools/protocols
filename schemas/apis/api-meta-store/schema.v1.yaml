@@ -612,6 +612,20 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
       description: Register new metadata of a file
       tags:
         - file
@@ -687,6 +701,24 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: ../api-file-provider/schema.v1.yaml#/components/schemas/ErrorModel
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       operationId: getFile
       description: Get file information
       parameters: []
@@ -700,6 +732,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteFileResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Delete file information
       tags:
         - file
@@ -730,6 +774,26 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Update information of a file
       requestBody:
         content:
