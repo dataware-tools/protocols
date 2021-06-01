@@ -410,7 +410,7 @@ paths:
                     sort_key: string
                     database_id: string
                     record_id: string
-                    files:
+                    data:
                       - type: raw_data
                         path: /records/016_00000000030000000240/data/camera_01_timestamps.csv
                         content-type: text/csv
@@ -763,8 +763,8 @@ paths:
 components:
   schemas:
     RecordModel:
-      description: ''
       type: object
+      description: ''
       x-examples:
         example-1:
           description: Driving Database
@@ -780,6 +780,7 @@ components:
                 - front
                 - center
                 - timestamps
+      title: ''
       properties:
         description:
           type: string
@@ -799,6 +800,7 @@ components:
           minLength: 1
         contents:
           type: object
+      additionalProperties: true
       required:
         - record_id
     CreateRecordRequest:
@@ -814,6 +816,7 @@ components:
           type: string
         description:
           type: string
+      additionalProperties: true
     UpdateRecordRequest:
       description: ''
       type: object
@@ -1054,6 +1057,7 @@ components:
           type: string
         uuid:
           type: string
+      additionalProperties: true
       required:
         - path
         - uuid
@@ -1086,6 +1090,7 @@ components:
           type: number
         contents:
           type: object
+      additionalProperties: true
     CreateFileRequest:
       description: ''
       type: object
@@ -1110,6 +1115,7 @@ components:
           minLength: 1
         contents:
           type: object
+      additionalProperties: true
       required:
         - path
     DeleteDatabaseResponse:
@@ -1240,6 +1246,7 @@ components:
           type: array
           items:
             type: string
+      additionalProperties: true
       required:
         - columns
         - index_columns
@@ -1341,6 +1348,7 @@ components:
           type: array
           items:
             type: string
+      additionalProperties: true
       required:
         - columns
         - index_columns
