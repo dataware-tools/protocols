@@ -893,12 +893,14 @@ components:
           description: Driving Database
           record_id: '016_00000000030000000240'
       title: CreateRecordRequest
+      additionalProperties: {}
       properties:
         record_id:
           type: string
         description:
           type: string
-      additionalProperties: {}
+      required:
+        - record_id
     UpdateRecordRequest:
       description: ''
       type: object
@@ -1094,6 +1096,8 @@ components:
           type: string
         description:
           type: string
+      required:
+        - database_id
     UpdateDatabaseRequest:
       title: UpdateDatabaseRequest
       type: object
