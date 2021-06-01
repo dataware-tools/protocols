@@ -706,7 +706,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../api-file-provider/schema.v1.yaml#/components/schemas/ErrorModel
+                $ref: '#/components/schemas/ErrorModel'
         '404':
           description: Not Found
           content:
