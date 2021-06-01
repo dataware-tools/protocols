@@ -227,6 +227,20 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
       description: Create a new record
       tags:
         - record
