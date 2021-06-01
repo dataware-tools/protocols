@@ -16,11 +16,15 @@ paths:
     parameters:
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name: record_id
         in: path
         required: true
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name: database_id
         in: path
         required: true
@@ -51,6 +55,24 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       summary: Get record information
       tags:
         - record
@@ -64,6 +86,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteRecordResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Delete a record
       tags:
         - record
@@ -94,6 +122,26 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Update a record
       tags:
         - record
@@ -174,12 +222,26 @@ paths:
                     length: 1
                     total: 1
           description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       summary: List record information
       tags:
         - record
     parameters:
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name: database_id
         in: path
         required: true
@@ -209,6 +271,20 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
       description: Create a new record
       tags:
         - record
@@ -238,6 +314,8 @@ paths:
     parameters:
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name: database_id
         in: path
         required: true
@@ -262,6 +340,12 @@ paths:
                     _uuid: c21f969b5f03d33d43e04f8f136e7682
                     _creation_time: 1619716430.642142
                     _id: 440f8ceea90e11ebb2be0242ac110004
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       tags:
         - database
     delete:
@@ -274,6 +358,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteDatabaseResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Delete a database
       tags:
         - database
@@ -294,6 +384,20 @@ paths:
                     name: default database
                     description: The default database
                     df_name: db_0ffc6dbe_meta
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
       description: Update a database
       tags:
         - database
@@ -356,6 +460,12 @@ paths:
                     number_of_pages: 1
                     length: 1
                     total: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       tags:
         - database
     parameters: []
@@ -376,6 +486,14 @@ paths:
                     name: default database
                     description: The default database
                     df_name: db_0ffc6dbe_meta
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
       description: Create a new database
       tags:
         - database
@@ -426,6 +544,18 @@ paths:
                               - timestamps
                     length: 1
                     total: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       operationId: listFiles
       description: List files
       parameters:
@@ -482,6 +612,20 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
       description: Register new metadata of a file
       tags:
         - file
@@ -509,6 +653,8 @@ paths:
     parameters:
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name: database_id
         in: path
         required: true
@@ -516,11 +662,15 @@ paths:
     parameters:
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name: database_id
         in: path
         required: true
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9]+'
+          minLength: 1
         name: uuid
         in: path
         required: true
@@ -551,6 +701,24 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       operationId: getFile
       description: Get file information
       parameters: []
@@ -564,6 +732,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteFileResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Delete file information
       tags:
         - file
@@ -594,6 +768,26 @@ paths:
                           - front
                           - center
                           - timestamps
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Update information of a file
       requestBody:
         content:
@@ -621,6 +815,8 @@ paths:
     parameters:
       - schema:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name: database_id
         in: path
         required: true
@@ -670,6 +866,24 @@ paths:
                     index_columns:
                       - record_id
                       - path
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       operationId: getConfig
       description: Get config for the database
     patch:
@@ -717,6 +931,26 @@ paths:
                     index_columns:
                       - record_id
                       - path
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
       description: Update config for the database
       requestBody:
         content:
@@ -781,26 +1015,23 @@ components:
                 - center
                 - timestamps
       title: ''
+      additionalProperties: {}
       properties:
         description:
           type: string
-          minLength: 1
         record_id:
           type: string
           minLength: 1
         data_type:
           type: string
-          minLength: 1
         start_timestamp:
           type: number
         end_timestamp:
           type: number
         content_type:
           type: string
-          minLength: 1
         contents:
           type: object
-      additionalProperties: {}
       required:
         - record_id
     CreateRecordRequest:
@@ -814,9 +1045,13 @@ components:
       properties:
         record_id:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         description:
           type: string
       additionalProperties: {}
+      required:
+        - record_id
     UpdateRecordRequest:
       description: ''
       type: object
@@ -1008,10 +1243,14 @@ components:
       properties:
         database_id:
           type: string
+          pattern: '^[a-zA-Z0-9_-]+'
+          minLength: 1
         name:
           type: string
         description:
           type: string
+      required:
+        - database_id
     UpdateDatabaseRequest:
       title: UpdateDatabaseRequest
       type: object
@@ -1112,7 +1351,8 @@ components:
       properties:
         path:
           type: string
-          minLength: 1
+          pattern: '^[a-zA-Z0-9:;.,_=<>/~!@#$%^&()+-]+'
+          minLength: 0
         contents:
           type: object
       additionalProperties: {}
@@ -1352,6 +1592,14 @@ components:
       required:
         - columns
         - index_columns
+    ErrorModel:
+      title: ErrorModel
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+        - detail
 tags:
   - name: config
   - name: database
