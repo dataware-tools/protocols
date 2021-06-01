@@ -897,6 +897,8 @@ components:
       properties:
         record_id:
           type: string
+          pattern: '^[a-zA-Z0-9._-]+'
+          minLength: 1
         description:
           type: string
       required:
@@ -1092,6 +1094,8 @@ components:
       properties:
         database_id:
           type: string
+          pattern: '^[a-zA-Z0-9._-]+'
+          minLength: 1
         name:
           type: string
         description:
@@ -1195,13 +1199,14 @@ components:
                 - center
                 - timestamps
       title: CreateFileRequest
+      additionalProperties: {}
       properties:
         path:
           type: string
-          minLength: 1
+          pattern: '^[a-zA-Z0-9:;.,_=<>/~!@#$%^&()+-]+'
+          minLength: 0
         contents:
           type: object
-      additionalProperties: {}
       required:
         - path
     DeleteDatabaseResponse:
