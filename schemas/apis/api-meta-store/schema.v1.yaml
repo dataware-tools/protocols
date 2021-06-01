@@ -893,7 +893,6 @@ components:
           description: Driving Database
           record_id: '016_00000000030000000240'
       title: CreateRecordRequest
-      additionalProperties: {}
       properties:
         record_id:
           type: string
@@ -901,6 +900,7 @@ components:
           minLength: 1
         description:
           type: string
+      additionalProperties: {}
       required:
         - record_id
     UpdateRecordRequest:
@@ -1199,7 +1199,6 @@ components:
                 - center
                 - timestamps
       title: CreateFileRequest
-      additionalProperties: {}
       properties:
         path:
           type: string
@@ -1207,6 +1206,7 @@ components:
           minLength: 0
         contents:
           type: object
+      additionalProperties: {}
       required:
         - path
     DeleteDatabaseResponse:
