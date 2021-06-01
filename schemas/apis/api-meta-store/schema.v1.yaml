@@ -800,7 +800,7 @@ components:
           minLength: 1
         contents:
           type: object
-      additionalProperties: true
+      additionalProperties: {}
       required:
         - record_id
     CreateRecordRequest:
@@ -816,7 +816,7 @@ components:
           type: string
         description:
           type: string
-      additionalProperties: true
+      additionalProperties: {}
     UpdateRecordRequest:
       description: ''
       type: object
@@ -1057,7 +1057,7 @@ components:
           type: string
         uuid:
           type: string
-      additionalProperties: true
+      additionalProperties: {}
       required:
         - path
         - uuid
@@ -1090,7 +1090,7 @@ components:
           type: number
         contents:
           type: object
-      additionalProperties: true
+      additionalProperties: {}
     CreateFileRequest:
       description: ''
       type: object
@@ -1115,7 +1115,7 @@ components:
           minLength: 1
         contents:
           type: object
-      additionalProperties: true
+      additionalProperties: {}
       required:
         - path
     DeleteDatabaseResponse:
@@ -1246,7 +1246,7 @@ components:
           type: array
           items:
             type: string
-      additionalProperties: true
+      additionalProperties: {}
       required:
         - columns
         - index_columns
@@ -1348,7 +1348,7 @@ components:
           type: array
           items:
             type: string
-      additionalProperties: true
+      additionalProperties: {}
       required:
         - columns
         - index_columns
