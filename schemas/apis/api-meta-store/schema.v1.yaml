@@ -192,6 +192,12 @@ paths:
           in: query
           schema:
             type: string
+        - schema:
+            type: array
+            example: ["name", "id"]
+          in: query
+          name: search_key
+          description: Which key to fuzzy search
       responses:
         '200':
           content:
@@ -439,6 +445,12 @@ paths:
           in: query
           schema:
             type: string
+        - schema:
+            type: array
+            example: ["name", "id"]
+          in: query
+          name: search_key
+          description: Which key to fuzzy search
       summary: List databases
       responses:
         '200':
@@ -587,6 +599,12 @@ paths:
           in: query
           name: record_id
           description: Record id
+        - schema:
+            type: array
+            example: ["name", "id"]
+          in: query
+          name: search_key
+          description: Which key to fuzzy search
       tags:
         - file
     post:
