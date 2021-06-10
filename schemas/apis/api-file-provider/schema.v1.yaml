@@ -123,6 +123,7 @@ paths:
                 properties:
                   save_file_path:
                     type: string
+                additionalProperties: {}
         '409':
           description: A file with the same path already exists.
           content:
