@@ -159,7 +159,7 @@ paths:
                   type: string
                   format: binary
                   description: File to upload as binary data.
-                contents:
+                metadata:
                   type: string
                   description: Metadata contents as JSON string.
                   format: binary
