@@ -193,6 +193,35 @@ paths:
       description: Get Action
       tags:
         - action
+  /permitted-actions:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - permitted-action
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array of permitted action ids.
+                items:
+                  type: string
+      operationId: listPermittedActions
+      description: Get list of permitted actions for a database.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          required: true
+          description: Database id for checking permitted actions.
+        - schema:
+            type: string
+          in: query
+          name: user_id
+          description: 'User id to check permission. If not specified, the id of the accessing user is used.'
 components:
   schemas:
     RoleModel:
