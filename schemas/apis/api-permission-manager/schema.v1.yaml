@@ -193,6 +193,68 @@ paths:
       description: Get Action
       tags:
         - action
+  /permitted-actions:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - permitted-action
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array of permitted action ids.
+                items:
+                  type: string
+      operationId: listPermittedActions
+      description: Get list of permitted actions for a database.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          required: true
+          description: Database id for checking permitted actions.
+        - schema:
+            type: string
+          in: query
+          name: user_id
+          description: 'User id to check permission. If not specified, the id of the accessing user is used.'
+  '/permitted-actions/{action_id}':
+    parameters:
+      - schema:
+          type: string
+        name: action_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+                description: Whether the action is permitted.
+      operationId: getIfActionPermitted
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          required: true
+          description: Database id for checking permitted actions.
+        - schema:
+            type: string
+          in: query
+          name: user_id
+          description: 'User id to check permission. If not specified, the id of the accessing user is used.'
+      description: Get if the action is permitted on a database.
+      tags:
+        - permitted-action
 components:
   schemas:
     RoleModel:
@@ -437,4 +499,5 @@ components:
 tags:
   - name: action
   - name: role
+  - name: permitted-action
   - name: user
