@@ -9,12 +9,12 @@
     "location": "external"
   },
   "docs": {
-    "id": "data_docs",
+    "id": "docs",
     "icon": "book",
     "name": "Documents",
     "description": "Read documents",
-    "urlPrefix": "http://192.168.1.122:32332",
-    "visibility": "private",
+    "urlPrefix": "https://dataware-tools.gitbook.io/dataware-tools/",
+    "visibility": "public",
     "location": "internal"
   },
   "dataBrowser": {
