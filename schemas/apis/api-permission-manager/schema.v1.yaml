@@ -514,8 +514,14 @@ components:
       properties:
         database_ids:
           type: array
+          description: Ids of permitted databases.
           items:
             type: string
+        selected_indices:
+          type: array
+          description: Indices of permitted databases in input.
+          items:
+            type: integer
   responses: {}
   parameters:
     per_page:
