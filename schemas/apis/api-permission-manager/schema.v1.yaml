@@ -255,6 +255,27 @@ paths:
       description: Get if the action is permitted on a database.
       tags:
         - permitted-action
+  /permitted-databases:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - permitted-database
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPermittedDatabasesResponse'
+      operationId: getPermittedDatabases
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetPermittedDatabasesRequest'
+        description: ''
+      description: Get list of permitted databases filtered from the input.
 components:
   schemas:
     RoleModel:
@@ -473,6 +494,34 @@ components:
           $ref: '#/components/schemas/ActionModel'
       required:
         - actions
+    GetPermittedDatabasesRequest:
+      title: GetPermittedDatabasesRequest
+      type: object
+      properties:
+        database_ids:
+          type: array
+          description: Id of databases for checking permitted or not to read.
+          items:
+            type: string
+        user_id:
+          type: string
+          description: 'User id to check permission. If not specified, the id of the accessing user is used.'
+      required:
+        - database_ids
+    GetPermittedDatabasesResponse:
+      title: GetPermittedDatabasesResponse
+      type: object
+      properties:
+        database_ids:
+          type: array
+          description: Ids of permitted databases.
+          items:
+            type: string
+        selected_indices:
+          type: array
+          description: Indices of permitted databases in input.
+          items:
+            type: integer
   responses: {}
   parameters:
     per_page:
