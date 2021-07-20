@@ -3635,6 +3635,8 @@ components:
             js:
               type: string
               minLength: 1
+            reason:
+              type: string
         status:
           type: object
           required:
