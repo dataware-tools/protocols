@@ -187,6 +187,11 @@ paths:
           in: query
           schema:
             type: string
+        - name: sort_order
+          description: "Sort order (1: asc, -1: desc)"
+          in: query
+          schema:
+            type: integer
         - name: search
           description: Search keyword for name of records
           in: query
