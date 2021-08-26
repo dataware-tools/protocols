@@ -1,0 +1,148 @@
+openapi: 3.0.2
+info:
+  title: label store
+  version: '1.0'
+  description: Label related APIs.
+  contact:
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+    email: contact@hdwlab.co.jp
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /labels:
+    get:
+      summary: List labels
+      tags:
+        - label
+      responses:
+        '200':
+          $ref: '#/components/responses/ListLabelsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-labels
+      description: List labels.
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - schema:
+            type: integer
+          in: query
+          name: task_id
+          description: ID of a task for filtering.
+        - schema:
+            type: string
+            format: date-time
+            example: '2017-07-21T17:32:28Z'
+          in: query
+          name: range_start
+          description: Start time of the range for filtering.
+        - schema:
+            type: string
+            format: date-time
+            example: '2017-07-21T17:32:28Z'
+          in: query
+          name: range_end
+          description: End time of the range for filtering.
+    post:
+      summary: Create new label
+      operationId: post-label
+      tags:
+        - label
+      description: Create a new label.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelModel'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    LabelModel:
+      type: object
+      title: LabelModel
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        task_id:
+          type: integer
+        range_start:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28Z'
+        range_end:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28Z'
+        label_data:
+          type: object
+          description: Label object which is the JSONField.
+        created_at:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28Z'
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28Z'
+          readOnly: true
+      required:
+        - uuid
+        - task_id
+      readOnly: true
+      description: ''
+  responses:
+    ListLabelsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LabelModel'
+              number_of_pages:
+                type: integer
+              page:
+                type: integer
+              per_page:
+                type: integer
+              length:
+                type: integer
+              total:
+                type: integer
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                type: string
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Number of items to return per page.
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: number
+      description: Page number.
+tags:
+  - name: label
