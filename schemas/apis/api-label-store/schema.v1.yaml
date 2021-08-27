@@ -100,7 +100,7 @@ paths:
         description: ''
   '/labels/{label_id}':
     get:
-      summary: Your GET endpoint
+      summary: Get label
       tags:
         - label
       responses:
@@ -119,7 +119,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/label_id'
     patch:
-      summary: ''
+      summary: Update label
       operationId: patch-label
       responses:
         '200':
@@ -167,6 +167,8 @@ paths:
         '404':
           $ref: '#/components/responses/ErrorResponse'
       description: Delete a label.
+      tags:
+        - label
   /tasks:
     get:
       summary: List tasks
@@ -220,7 +222,7 @@ paths:
           name: application_id
           description: ID of an application for filtering.
     post:
-      summary: ''
+      summary: Create task
       operationId: post-tasks
       responses:
         '200':
@@ -292,7 +294,8 @@ paths:
         required: true
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - task
       responses:
         '200':
           description: OK
@@ -307,7 +310,7 @@ paths:
       operationId: get-task
       description: Get a task.
     patch:
-      summary: ''
+      summary: Update task
       operationId: patch-task
       responses:
         '200':
@@ -326,6 +329,8 @@ paths:
             schema:
               $ref: '#/components/schemas/TaskModel'
       description: Update a task.
+      tags:
+        - task
     delete:
       summary: Delete task
       operationId: delete-task
@@ -342,6 +347,8 @@ paths:
         '404':
           $ref: '#/components/responses/ErrorResponse'
       description: Delete a task.
+      tags:
+        - task
 components:
   schemas:
     LabelModel:
