@@ -19,7 +19,26 @@ paths:
         - label
       responses:
         '200':
-          $ref: '#/components/responses/ListLabelsResponse'
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LabelModel'
+                  number_of_pages:
+                    type: integer
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+                  length:
+                    type: integer
+                  total:
+                    type: integer
         '400':
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-labels
@@ -124,12 +143,77 @@ paths:
                   range_end: '2017-07-21T17:32:28Z'
                   label_data: {}
         description: ''
+  /tasks:
+    get:
+      summary: List tasks
+      tags:
+        - task
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TaskModel'
+                  number_of_pages:
+                    type: integer
+                  page:
+                    type: integer
+                  per_page:
+                    type: integer
+                  length:
+                    type: integer
+                  total:
+                    type: integer
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-tasks
+      description: List tasks.
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - schema:
+            type: string
+          in: query
+          name: annotator_id
+          description: ID of an annotator for filtering.
+        - schema:
+            type: string
+          in: query
+          name: reviewer_id
+          description: ID of a reviewer for filtering.
+    post:
+      summary: ''
+      operationId: post-tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayableTask'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Create new tasks.
+      tags:
+        - task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArrayableTask'
+        description: Task to create can be both single and multiple.
 components:
   schemas:
     LabelModel:
       type: object
       title: LabelModel
-      description: ''
+      description: Model for a label object.
       properties:
         uuid:
           type: string
@@ -148,41 +232,59 @@ components:
           description: Label object which is the JSONField.
           type: object
         created_at:
-          type: string
-          format: date-time
-          example: '2017-07-21T17:32:28Z'
-          readOnly: true
+          $ref: '#/components/schemas/AutoDateTimeField'
         updated_at:
-          type: string
-          format: date-time
-          example: '2017-07-21T17:32:28Z'
-          readOnly: true
+          $ref: '#/components/schemas/AutoDateTimeField'
       required:
         - uuid
         - task_id
       readOnly: true
+    TaskModel:
+      title: Task
+      type: object
+      description: Model for a task object.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        database_id:
+          type: string
+        record_id:
+          type: string
+        application_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        annotator_id:
+          type: string
+        reviewer_id:
+          type: string
+        created_at:
+          $ref: '#/components/schemas/AutoDateTimeField'
+        updated_at:
+          $ref: '#/components/schemas/AutoDateTimeField'
+      required:
+        - id
+        - database_id
+        - record_id
+        - application_id
+    ArrayableTask:
+      oneOf:
+        - $ref: '#/components/schemas/TaskModel'
+        - type: array
+          items:
+            $ref: '#/components/schemas/TaskModel'
+      title: ''
+      description: ''
+    AutoDateTimeField:
+      type: string
+      title: created_at
+      example: '2017-07-21T17:32:28Z'
+      format: date-time
+      readOnly: true
   responses:
-    ListLabelsResponse:
-      description: Example response
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  $ref: '#/components/schemas/LabelModel'
-              number_of_pages:
-                type: integer
-              page:
-                type: integer
-              per_page:
-                type: integer
-              length:
-                type: integer
-              total:
-                type: integer
     ErrorResponse:
       description: Error response.
       content:
@@ -192,6 +294,7 @@ components:
             properties:
               detail:
                 type: string
+          examples: {}
   parameters:
     per_page:
       name: per_page
@@ -217,3 +320,4 @@ components:
       description: ID of a label.
 tags:
   - name: label
+  - name: task
