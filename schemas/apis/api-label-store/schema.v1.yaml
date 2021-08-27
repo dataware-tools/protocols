@@ -61,11 +61,75 @@ paths:
                 $ref: '#/components/schemas/LabelModel'
         '400':
           $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelModel'
+            examples:
+              example-1:
+                value:
+                  uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+                  task_id: 0
+                  range_start: '2017-07-21T17:32:28Z'
+                  range_end: '2017-07-21T17:32:28Z'
+                  label_data: {}
+        description: ''
+  '/labels/{label_id}':
+    get:
+      summary: Your GET endpoint
+      tags:
+        - label
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelModel'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-label
+      description: Get a label.
+    parameters:
+      - $ref: '#/components/parameters/label_id'
+    patch:
+      summary: ''
+      operationId: patch-label
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelModel'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+        - label
+      description: Update a label.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelModel'
+            examples:
+              example-1:
+                value:
+                  uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+                  task_id: 0
+                  range_start: '2017-07-21T17:32:28Z'
+                  range_end: '2017-07-21T17:32:28Z'
+                  label_data: {}
+        description: ''
 components:
   schemas:
     LabelModel:
       type: object
       title: LabelModel
+      description: ''
       properties:
         uuid:
           type: string
@@ -81,8 +145,8 @@ components:
           format: date-time
           example: '2017-07-21T17:32:28Z'
         label_data:
-          type: object
           description: Label object which is the JSONField.
+          type: object
         created_at:
           type: string
           format: date-time
@@ -97,7 +161,6 @@ components:
         - uuid
         - task_id
       readOnly: true
-      description: ''
   responses:
     ListLabelsResponse:
       description: Example response
@@ -144,5 +207,13 @@ components:
       schema:
         type: number
       description: Page number.
+    label_id:
+      name: label_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: ID of a label.
 tags:
   - name: label
