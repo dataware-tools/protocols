@@ -170,6 +170,7 @@ paths:
                     type: integer
                   total:
                     type: integer
+              examples: {}
         '400':
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-tasks
@@ -187,6 +188,11 @@ paths:
           in: query
           name: reviewer_id
           description: ID of a reviewer for filtering.
+        - schema:
+            type: string
+          in: query
+          name: application_id
+          description: ID of an application for filtering.
     post:
       summary: ''
       operationId: post-tasks
@@ -208,6 +214,40 @@ paths:
             schema:
               $ref: '#/components/schemas/ArrayableTask'
         description: Task to create can be both single and multiple.
+  /tasks/publish:
+    post:
+      summary: Publish tasks
+      operationId: publish-tasks
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Publish tasks.
+      tags:
+        - task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_ids:
+                  oneOf:
+                    - properties: {}
+                      type: integer
+                    - type: array
+                      items:
+                        type: integer
+                  description: ID of tasks to publish. Either an integer or array of integers.
+                filename:
+                  type: string
+              required:
+                - task_ids
 components:
   schemas:
     LabelModel:
@@ -261,6 +301,14 @@ components:
           type: string
         reviewer_id:
           type: string
+        deadline:
+          type: string
+          format: date
+          example: '2017-07-21'
+        annotation_completed:
+          type: boolean
+        review_completed:
+          type: boolean
         created_at:
           $ref: '#/components/schemas/AutoDateTimeField'
         updated_at:
