@@ -429,7 +429,7 @@ components:
       description: ''
     AutoDateTimeField:
       type: string
-      title: created_at
+      title: ''
       example: '2017-07-21T17:32:28Z'
       format: date-time
       readOnly: true
