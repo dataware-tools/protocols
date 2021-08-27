@@ -151,6 +151,22 @@ paths:
                   range_end: '2017-07-21T17:32:28Z'
                   label_data: {}
         description: ''
+    delete:
+      summary: Delete label
+      operationId: delete-label
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Delete a label.
   /tasks:
     get:
       summary: List tasks
@@ -233,6 +249,11 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '403':
@@ -305,6 +326,22 @@ paths:
             schema:
               $ref: '#/components/schemas/TaskModel'
       description: Update a task.
+    delete:
+      summary: Delete task
+      operationId: delete-task
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Delete a task.
 components:
   schemas:
     LabelModel:
