@@ -41,6 +41,8 @@ paths:
                     type: integer
         '400':
           $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-labels
       description: List labels.
       parameters:
@@ -80,6 +82,8 @@ paths:
                 $ref: '#/components/schemas/LabelModel'
         '400':
           $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
       requestBody:
         content:
           application/json:
@@ -106,6 +110,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LabelModel'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
         '404':
           $ref: '#/components/responses/ErrorResponse'
       operationId: get-label
@@ -123,6 +129,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/LabelModel'
         '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
           $ref: '#/components/responses/ErrorResponse'
         '404':
           $ref: '#/components/responses/ErrorResponse'
@@ -173,6 +181,8 @@ paths:
               examples: {}
         '400':
           $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
       operationId: get-tasks
       description: List tasks.
       parameters:
@@ -205,6 +215,8 @@ paths:
                 $ref: '#/components/schemas/ArrayableTask'
         '400':
           $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
       description: Create new tasks.
       tags:
         - task
@@ -222,6 +234,8 @@ paths:
         '200':
           description: OK
         '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
           $ref: '#/components/responses/ErrorResponse'
         '404':
           $ref: '#/components/responses/ErrorResponse'
@@ -248,6 +262,49 @@ paths:
                   type: string
               required:
                 - task_ids
+  '/tasks/{task_id}':
+    parameters:
+      - schema:
+          type: string
+        name: task_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskModel'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-task
+      description: Get a task.
+    patch:
+      summary: ''
+      operationId: patch-task
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskModel'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskModel'
+      description: Update a task.
 components:
   schemas:
     LabelModel:
