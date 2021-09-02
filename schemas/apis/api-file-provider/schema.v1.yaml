@@ -202,6 +202,12 @@ paths:
           name: path
           description: File path
           required: true
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
 components:
   schemas:
     DownloadsPostModel:
