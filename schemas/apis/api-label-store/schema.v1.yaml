@@ -24,7 +24,6 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - {}
                   - type: object
                     properties:
                       data:
@@ -344,6 +343,7 @@ components:
         uuid:
           type: string
           format: uuid
+          readOnly: true
         task_id:
           type: integer
         range_start:
@@ -363,8 +363,6 @@ components:
           $ref: '#/components/schemas/AutoDateTimeField'
       required:
         - uuid
-        - task_id
-      readOnly: true
     TaskModel:
       title: Task
       type: object
@@ -401,9 +399,6 @@ components:
           $ref: '#/components/schemas/AutoDateTimeField'
       required:
         - id
-        - database_id
-        - record_id
-        - application_id
     ArrayableTask:
       oneOf:
         - $ref: '#/components/schemas/TaskModel'
