@@ -216,7 +216,9 @@ components:
       description: Post request for creating a JWT to download a file
       x-examples:
         example-1:
-          path: /opt/app/pyproject.toml
+          value:
+            path: /opt/app/pyproject.toml
+            database_id: sample_database_id
       properties:
         path:
           type: string
