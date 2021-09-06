@@ -202,12 +202,23 @@ paths:
           name: path
           description: File path
           required: true
+        - schema:
+            type: string
+          in: query
+          name: database_id
+          description: Database ID
+          required: true
 components:
   schemas:
     DownloadsPostModel:
       title: DownloadsPostModel
       type: object
       description: Post request for creating a JWT to download a file
+      x-examples:
+        example-1:
+          value:
+            path: /opt/app/pyproject.toml
+            database_id: sample_database_id
       properties:
         path:
           type: string
@@ -223,9 +234,7 @@ components:
           description: 'If specified, Content-type in the response headers will contain this value'
       required:
         - path
-      x-examples:
-        example-1:
-          path: /opt/app/pyproject.toml
+        - database_id
     DownloadsPostedModel:
       title: DownloadsPostedModel
       type: object
