@@ -199,8 +199,8 @@ paths:
         - schema:
             type: string
           in: query
-          name: path
-          description: File path
+          name: file_uuid
+          description: File uuid
           required: true
         - schema:
             type: string
@@ -220,7 +220,7 @@ components:
             path: /opt/app/pyproject.toml
             database_id: sample_database_id
       properties:
-        path:
+        file_uuid:
           type: string
           description: Path to a file to download
         database_id:
@@ -233,7 +233,7 @@ components:
           type: string
           description: 'If specified, Content-type in the response headers will contain this value'
       required:
-        - path
+        - file_uuid
         - database_id
     DownloadsPostedModel:
       title: DownloadsPostedModel
