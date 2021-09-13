@@ -31,6 +31,22 @@ paths:
         - $ref: '#/components/parameters/per_page'
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/search'
+    patch:
+      summary: ''
+      operationId: batchUpdateUsers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchUpdateUsersResponse'
+      description: Batch update users. This endpoint doesn't accept to insert new user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchUpdateUserRequest'
   '/users/{user_id}':
     parameters:
       - schema:
@@ -522,6 +538,26 @@ components:
           description: Indices of permitted databases in input.
           items:
             type: integer
+    BatchUpdateUsersRequest:
+      title: BatchUpdateUsersRequest
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              user_id:
+                type: string
+              role_ids:
+                type: array
+                items:
+                  type: string
+    BatchUpdateUsersResponse:
+      title: BatchUpdateUsersResponse
+      type: array
+      items:
+        $ref: '#/components/schemas/UserModel'
   responses: {}
   parameters:
     per_page:
