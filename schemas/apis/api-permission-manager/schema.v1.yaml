@@ -46,7 +46,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BatchUpdateUserRequest'
+              $ref: '#/components/schemas/BatchUpdateUsersRequest'
   '/users/{user_id}':
     parameters:
       - schema:
