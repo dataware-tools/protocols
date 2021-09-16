@@ -85,7 +85,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LabelModel'
+              $ref: '#/components/schemas/LabelModelForCreate'
             examples:
               example-1:
                 value:
@@ -368,6 +368,12 @@ components:
           $ref: '#/components/schemas/AutoDateTimeField'
       required:
         - uuid
+    LabelModelForCreate:
+      allOf:
+        - $ref: '#/components/schemas/LabelModel'
+      required:
+        - task_id
+        - label_data
     TaskModel:
       title: Task
       type: object
@@ -409,13 +415,22 @@ components:
           $ref: '#/components/schemas/AutoDateTimeField'
       required:
         - id
+    TaskModelForCreate:
+      title: TaskModelForCreate
+      allOf:
+        - $ref: '#/components/schemas/TaskModel'
+      required:
+        - database_id
+        - record_id
+        - application_id
+        - name
+      description: Model for creating a task object.
     ArrayableTask:
       oneOf:
-        - $ref: '#/components/schemas/TaskModel'
+        - $ref: '#/components/schemas/TaskModelForCreate'
         - type: array
           items:
-            $ref: '#/components/schemas/TaskModel'
-      title: ''
+            $ref: '#/components/schemas/TaskModelForCreate'
       description: ''
     AutoDateTimeField:
       type: string
