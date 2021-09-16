@@ -428,6 +428,12 @@ components:
           type: integer
         total:
           type: integer
+    ErrorModel:
+      title: ErrorModel
+      type: object
+      properties:
+        detail:
+          type: string
     ListLabelsResponse:
       title: ListLabelsResponseBody
       allOf:
@@ -454,10 +460,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              detail:
-                type: string
+            $ref: '#/components/schemas/ErrorModel'
           examples: {}
     DeleteSuccessResponse:
       description: Response for succeeded DELETE method.
