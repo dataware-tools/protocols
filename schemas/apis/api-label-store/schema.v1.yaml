@@ -23,14 +23,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/LabelModel'
-                  - $ref: '#/components/schemas/BasicPaginationModel'
+                $ref: '#/components/schemas/ListLabelsResponse'
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '403':
@@ -177,14 +170,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/TaskModel'
-                  - $ref: '#/components/schemas/BasicPaginationModel'
+                $ref: '#/components/schemas/ListTasksResponse'
               examples: {}
         '400':
           $ref: '#/components/responses/ErrorResponse'
@@ -452,6 +438,26 @@ components:
           type: integer
         total:
           type: integer
+    ListLabelsResponse:
+      title: ListLabelsResponseBody
+      allOf:
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/LabelModel'
+        - $ref: '#/components/schemas/BasicPaginationModel'
+    ListTasksResponse:
+      title: ListTasksResponseBody
+      allOf:
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskModel'
+        - $ref: '#/components/schemas/BasicPaginationModel'
   responses:
     ErrorResponse:
       description: Error response.
