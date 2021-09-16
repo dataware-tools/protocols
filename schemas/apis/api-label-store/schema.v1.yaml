@@ -146,12 +146,7 @@ paths:
       operationId: delete-label
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
+          $ref: '#/components/responses/DeleteSuccessResponse'
         '403':
           $ref: '#/components/responses/ErrorResponse'
         '404':
@@ -311,12 +306,7 @@ paths:
       operationId: delete-task
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
+          $ref: '#/components/responses/DeleteSuccessResponse'
         '403':
           $ref: '#/components/responses/ErrorResponse'
         '404':
@@ -469,6 +459,8 @@ components:
               detail:
                 type: string
           examples: {}
+    DeleteSuccessResponse:
+      description: Response for succeeded DELETE method.
   parameters:
     per_page:
       name: per_page
