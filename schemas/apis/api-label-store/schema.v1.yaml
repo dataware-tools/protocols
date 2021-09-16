@@ -388,8 +388,10 @@ components:
           type: string
         annotator_id:
           type: string
-        reviewer_id:
-          type: string
+        reviewer_ids:
+          type: array
+          items:
+            type: string
         deadline:
           type: string
           format: date
@@ -397,7 +399,10 @@ components:
         annotation_completed:
           type: boolean
         review_completed:
-          type: boolean
+          type: array
+          description: Array of user_ids who completed reviewing.
+          items:
+            type: string
         created_at:
           $ref: '#/components/schemas/AutoDateTimeField'
         updated_at:
