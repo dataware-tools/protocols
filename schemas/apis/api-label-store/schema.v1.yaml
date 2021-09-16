@@ -59,6 +59,11 @@ paths:
           in: query
           name: range_end
           description: End time of the range for filtering.
+        - schema:
+            type: string
+          in: query
+          description: ID of a record for filtering.
+          name: record_id
     post:
       summary: Create new label
       operationId: post-label
