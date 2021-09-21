@@ -1,0 +1,492 @@
+openapi: 3.0.2
+info:
+  title: label store
+  version: '1.0'
+  description: Label related APIs.
+  contact:
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+    email: contact@hdwlab.co.jp
+  license:
+    name: Apache-2.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /labels:
+    get:
+      summary: List labels
+      tags:
+        - label
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLabelsResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-labels
+      description: List labels.
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - schema:
+            type: integer
+          in: query
+          name: task_id
+          description: ID of a task for filtering.
+        - schema:
+            type: string
+            format: date-time
+            example: '2017-07-21T17:32:28Z'
+          in: query
+          name: range_start
+          description: Start time of the range for filtering.
+        - schema:
+            type: string
+            format: date-time
+            example: '2017-07-21T17:32:28Z'
+          in: query
+          name: range_end
+          description: End time of the range for filtering.
+        - schema:
+            type: string
+          in: query
+          description: ID of a record for filtering.
+          name: record_id
+    post:
+      summary: Create new label
+      operationId: post-label
+      tags:
+        - label
+      description: Create a new label.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelModel'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelModelForCreate'
+            examples:
+              example-1:
+                value:
+                  uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+                  task_id: 0
+                  range_start: '2017-07-21T17:32:28Z'
+                  range_end: '2017-07-21T17:32:28Z'
+                  label_data: {}
+        description: ''
+  '/labels/{label_id}':
+    get:
+      summary: Get label
+      tags:
+        - label
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelModel'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-label
+      description: Get a label.
+    parameters:
+      - $ref: '#/components/parameters/label_id'
+    patch:
+      summary: Update label
+      operationId: patch-label
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabelModel'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      tags:
+        - label
+      description: Update a label.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabelModel'
+            examples:
+              example-1:
+                value:
+                  uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+                  task_id: 0
+                  range_start: '2017-07-21T17:32:28Z'
+                  range_end: '2017-07-21T17:32:28Z'
+                  label_data: {}
+        description: ''
+    delete:
+      summary: Delete label
+      operationId: delete-label
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Delete a label.
+      tags:
+        - label
+  /tasks:
+    get:
+      summary: List tasks
+      tags:
+        - task
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTasksResponse'
+              examples: {}
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-tasks
+      description: List tasks that are permitted to read for the requested user.
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - schema:
+            type: string
+          in: query
+          name: annotator_id
+          description: ID of an annotator for filtering.
+        - schema:
+            type: string
+          in: query
+          name: reviewer_id
+          description: ID of a reviewer for filtering.
+        - schema:
+            type: string
+          in: query
+          name: application_id
+          description: ID of an application for filtering.
+    post:
+      summary: Create task
+      operationId: post-tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayableTask'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Create new tasks.
+      tags:
+        - task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArrayableTask'
+        description: Task to create can be both single and multiple.
+  /tasks/publish:
+    post:
+      summary: Publish tasks
+      operationId: publish-tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Publish tasks.
+      tags:
+        - task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task_ids:
+                  oneOf:
+                    - properties: {}
+                      type: integer
+                    - type: array
+                      items:
+                        type: integer
+                  description: ID of tasks to publish. Either an integer or array of integers.
+                filename:
+                  type: string
+              required:
+                - task_ids
+  '/tasks/{task_id}':
+    parameters:
+      - schema:
+          type: string
+        name: task_id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - task
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskModel'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      operationId: get-task
+      description: Get a task.
+    patch:
+      summary: Update task
+      operationId: patch-task
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskModel'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskModel'
+      description: Update a task.
+      tags:
+        - task
+    delete:
+      summary: Delete task
+      operationId: delete-task
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+      description: Delete a task.
+      tags:
+        - task
+components:
+  schemas:
+    LabelModel:
+      type: object
+      title: LabelModel
+      description: Model for a label object.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+        task_id:
+          type: integer
+        range_start:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28Z'
+        range_end:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28Z'
+        label_data:
+          description: Label object which is the JSONField.
+          type: object
+        created_at:
+          $ref: '#/components/schemas/AutoDateTimeField'
+        updated_at:
+          $ref: '#/components/schemas/AutoDateTimeField'
+      required:
+        - uuid
+    LabelModelForCreate:
+      allOf:
+        - $ref: '#/components/schemas/LabelModel'
+      required:
+        - task_id
+        - label_data
+    TaskModel:
+      title: Task
+      type: object
+      description: Model for a task object.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        database_id:
+          type: string
+        record_id:
+          type: string
+        application_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        annotator_id:
+          type: string
+        reviewer_ids:
+          type: array
+          items:
+            type: string
+        deadline:
+          type: string
+          format: date
+          example: '2017-07-21'
+        annotation_completed:
+          type: boolean
+        review_completed:
+          type: array
+          description: Array of user_ids who completed reviewing.
+          items:
+            type: string
+        created_at:
+          $ref: '#/components/schemas/AutoDateTimeField'
+        updated_at:
+          $ref: '#/components/schemas/AutoDateTimeField'
+      required:
+        - id
+    TaskModelForCreate:
+      title: TaskModelForCreate
+      allOf:
+        - $ref: '#/components/schemas/TaskModel'
+      required:
+        - database_id
+        - record_id
+        - application_id
+        - name
+      description: Model for creating a task object.
+    ArrayableTask:
+      oneOf:
+        - $ref: '#/components/schemas/TaskModelForCreate'
+        - type: array
+          items:
+            $ref: '#/components/schemas/TaskModelForCreate'
+      description: ''
+    AutoDateTimeField:
+      type: string
+      title: ''
+      example: '2017-07-21T17:32:28Z'
+      format: date-time
+      readOnly: true
+    BasicPaginationModel:
+      title: BasicPaginationModel
+      type: object
+      properties:
+        number_of_pages:
+          type: integer
+        page:
+          type: integer
+        per_page:
+          type: integer
+        length:
+          type: integer
+        total:
+          type: integer
+    ErrorModel:
+      title: ErrorModel
+      type: object
+      properties:
+        detail:
+          type: string
+    ListLabelsResponse:
+      title: ListLabelsResponseBody
+      allOf:
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/LabelModel'
+        - $ref: '#/components/schemas/BasicPaginationModel'
+    ListTasksResponse:
+      title: ListTasksResponseBody
+      allOf:
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskModel'
+        - $ref: '#/components/schemas/BasicPaginationModel'
+  responses:
+    ErrorResponse:
+      description: Error response.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+          examples: {}
+    DeleteSuccessResponse:
+      description: Response for succeeded DELETE method.
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Number of items to return per page.
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: number
+      description: Page number.
+    label_id:
+      name: label_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: ID of a label.
+tags:
+  - name: label
+  - name: task
