@@ -2460,6 +2460,13 @@ components:
     JobPostModel:
       description: ''
       type: object
+      x-examples:
+        example-1:
+          job_template_id: 15
+          path_to_rosbag: /Users/d_hayashi/data/sample.bag
+          data_dirs:
+            - /Users/d_hayashi/data
+          env_vars: {}
       properties:
         job_template_id:
           type: number
@@ -2476,15 +2483,12 @@ components:
           type: string
         memory_limits:
           type: string
+        database_id:
+          type: string
+        record_id:
+          type: string
       required:
         - job_template_id
-      x-examples:
-        example-1:
-          job_template_id: 15
-          path_to_rosbag: /Users/d_hayashi/data/sample.bag
-          data_dirs:
-            - /Users/d_hayashi/data
-          env_vars: {}
     JobPostedModel:
       description: ''
       type: object
