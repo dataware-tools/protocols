@@ -12,11 +12,16 @@ info:
 servers:
   - url: 'http://localhost:8080'
 paths:
-  '/jobs/{job_uid}':
+  '/databases/{database_id}/jobs/{job_uid}':
     parameters:
       - schema:
           type: string
         name: job_uid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: database_id
         in: path
         required: true
     get:
@@ -45,8 +50,13 @@ paths:
       description: Delete a job
       tags:
         - job
-  /jobs:
-    parameters: []
+  '/databases/{database_id}/jobs':
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
     get:
       summary: Get list of jobs
       operationId: listJobs
@@ -78,7 +88,7 @@ paths:
               $ref: '#/components/schemas/JobPostModel'
       tags:
         - job
-  /job_types:
+  '/databases/{database_id}/job_types':
     get:
       summary: Get list of job-types
       operationId: listJobTypes
@@ -92,11 +102,22 @@ paths:
       description: Get a list of job-types
       tags:
         - jobType
-  '/job_types/{job_type_uid}':
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+  '/databases/{database_id}/job_types/{job_type_uid}':
     parameters:
       - schema:
           type: string
         name: job_type_uid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: database_id
         in: path
         required: true
     get:
@@ -112,7 +133,7 @@ paths:
       description: Get detail of a job-type
       tags:
         - jobType
-  /job_templates:
+  '/databases/{database_id}/job_templates':
     get:
       summary: Get list of job-templates
       operationId: listJobTemplates
@@ -144,11 +165,22 @@ paths:
               $ref: '#/components/schemas/JobTemplatePostModel'
       tags:
         - jobTemplate
-  '/job_templates/{job_template_id}':
+    parameters:
+      - schema:
+          type: string
+        name: database_id
+        in: path
+        required: true
+  '/databases/{database_id}/job_templates/{job_template_id}':
     parameters:
       - schema:
           type: integer
         name: job_template_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: database_id
         in: path
         required: true
     get:
