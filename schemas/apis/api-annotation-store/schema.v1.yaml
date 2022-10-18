@@ -108,9 +108,9 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    CommentedPoseAnnotationBody:
+    CommentedPointAnnotationBody:
       type: object
-      title: CommentedPoseAnnotationBody
+      title: CommentedPointAnnotationBody
       additionalProperties: false
       properties:
         commented_pose:
@@ -133,22 +133,20 @@ components:
                   type: object
                   required:
                     - x
-                    - 'y'
+                    - y
                     - z
                   properties:
                     x:
                       type: number
-                    'y':
+                    y:
                       type: number
                     z:
                       type: number
-                orientation:
-                  type: object
       required:
         - commented_pose
     AnnotationBody:
       oneOf:
-        - $ref: '#/components/schemas/CommentedPoseAnnotationBody'
+        - $ref: '#/components/schemas/CommentedPointAnnotationBody'
       title: ''
     AnnotationHeader:
       type: object
