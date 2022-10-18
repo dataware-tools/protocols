@@ -1,0 +1,281 @@
+openapi: 3.0.2
+info:
+  title: annotation store
+  version: '1.0'
+  contact:
+    email: contact@hdwlab.co.jp
+    name: Human Dataware Lab. Co. Ltd.
+    url: 'http://www.hdwlab.co.jp/'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/databases/{database_id}/annotations/search':
+    parameters:
+      - $ref: '#/components/parameters/database_id'
+    post:
+      summary: Search annotations
+      operationId: searchAnnotation
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/SearchAnnotationResponse'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      requestBody:
+        $ref: '#/components/requestBodies/SearchAnnotationRequest'
+  '/databases/{database_id}/annotations':
+    parameters:
+      - $ref: '#/components/parameters/database_id'
+    post:
+      summary: Create annotation
+      operationId: createAnnotation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      requestBody:
+        $ref: '#/components/requestBodies/CreateAnnotationRequest'
+  '/databases/{database_id}/annotations/{annotation_id}':
+    parameters:
+      - $ref: '#/components/parameters/database_id'
+      - $ref: '#/components/parameters/annotation_id'
+    get:
+      summary: Get annotation
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: getAnnotation
+    patch:
+      summary: Update annotation
+      operationId: updateAnnotation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Annotation'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annotation'
+    delete:
+      summary: Delete annotation
+      operationId: deleteAnnotation
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    CommentedPointAnnotationBody:
+      type: object
+      title: CommentedPointAnnotationBody
+      additionalProperties: false
+      properties:
+        commented_pose:
+          type: object
+          required:
+            - text
+            - frame_id
+            - pose
+          properties:
+            text:
+              type: string
+            frame_id:
+              type: string
+            pose:
+              type: object
+              required:
+                - position
+              properties:
+                position:
+                  type: object
+                  required:
+                    - x
+                    - y
+                    - z
+                  properties:
+                    x:
+                      type: number
+                    y:
+                      type: number
+                    z:
+                      type: number
+      required:
+        - commented_pose
+    AnnotationBody:
+      oneOf:
+        - $ref: '#/components/schemas/CommentedPointAnnotationBody'
+      title: ''
+    AnnotationHeader:
+      type: object
+      title: AnnotationHeader
+      additionalProperties: false
+      properties:
+        _api_version:
+          type: string
+        _kind:
+          type: string
+        _uuid:
+          type: string
+        annotation_id:
+          type: string
+        generation:
+          type: integer
+        record_id:
+          type: string
+        timestamp_from:
+          type: number
+          nullable: true
+        timestamp_to:
+          type: number
+          nullable: true
+        created_at:
+          type: string
+      required:
+        - _api_version
+        - _kind
+        - _uuid
+        - annotation_id
+        - generation
+        - record_id
+        - timestamp_from
+        - timestamp_to
+        - created_at
+    Annotation:
+      allOf:
+        - $ref: '#/components/schemas/AnnotationHeader'
+        - $ref: '#/components/schemas/AnnotationBody'
+  parameters:
+    database_id:
+      name: database_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Database ID.
+    annotation_id:
+      name: annotation_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Annotation ID.
+  responses:
+    SearchAnnotationResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annotation'
+              page:
+                type: integer
+              per_page:
+                type: integer
+              sort_key:
+                type: string
+              number_of_pages:
+                type: integer
+              length:
+                type: integer
+              total:
+                type: integer
+            required:
+              - data
+              - page
+              - per_page
+              - sort_key
+              - number_of_pages
+              - length
+              - total
+  requestBodies:
+    SearchAnnotationRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            properties:
+              page:
+                type: integer
+              per_page:
+                type: integer
+              sort_key:
+                type: string
+              query:
+                type: object
+                additionalProperties: false
+    CreateAnnotationRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/AnnotationBody'
+              - type: object
+                properties:
+                  _api_version:
+                    type: string
+                  _kind:
+                    type: string
+                  record_id:
+                    type: string
+                  timestamp_from:
+                    type: number
+                    nullable: true
+                  timestamp_to:
+                    type: number
+                    nullable: true
+                required:
+                  - _api_version
+                  - _kind
+                  - record_id
+                  - timestamp_from
+                  - timestamp_to
+tags:
+  - name: annotation
