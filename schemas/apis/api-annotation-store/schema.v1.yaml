@@ -113,7 +113,7 @@ components:
       title: CommentedPointAnnotationBody
       additionalProperties: false
       properties:
-        commented_pose:
+        commented_point:
           type: object
           required:
             - text
@@ -126,15 +126,19 @@ components:
               type: string
             point:
               type: object
+              required:
+                - x
+                - y
+                - z
               properties:
                 x:
                   type: number
-                'y':
+                y:
                   type: number
                 z:
                   type: number
       required:
-        - commented_pose
+        - commented_point
     AnnotationBody:
       oneOf:
         - $ref: '#/components/schemas/CommentedPointAnnotationBody'
@@ -268,5 +272,3 @@ components:
                   - record_id
                   - timestamp_from
                   - timestamp_to
-tags:
-  - name: annotation
